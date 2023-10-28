@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.8.10 on linux)" generated="20231028 19:34:25.287" rpa="false" schemaversion="4">
+<suite id="s1" name="Android-Testing" source="/home/yasser_jemli/Android-Testing">
+<suite id="s1-s1" name="Test Suites" source="/home/yasser_jemli/Android-Testing/test_suites">
+<suite id="s1-s1-s1" name="First Test Case" source="/home/yasser_jemli/Android-Testing/test_suites/first_test_case.robot">
+<test id="s1-s1-s1-t1" name="Get Device Name Test" line="6">
+<kw name="Get Android Device Name" library="adb_keywords">
+<var>${device_name}</var>
+<kw name="Run" library="OperatingSystem">
+<var>${output}</var>
+<arg>${ADB_COMMAND}</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<msg timestamp="20231028 19:34:25.435" level="INFO">Running command 'adb devices | grep -v "List of devices attached" | cut -f 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20231028 19:34:25.439" level="INFO">${output} = 0744437215100377
+</msg>
+<status status="PASS" starttime="20231028 19:34:25.432" endtime="20231028 19:34:25.440"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${output.strip()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20231028 19:34:25.443" level="FAIL">Variable '${output.strip()}' not found.</msg>
+<status status="FAIL" starttime="20231028 19:34:25.441" endtime="20231028 19:34:25.443"/>
+</kw>
+<status status="FAIL" starttime="20231028 19:34:25.432" endtime="20231028 19:34:25.444"/>
+</kw>
+<kw name="Drop Down the Notification Bar" library="adb_keywords">
+<arg>${device_name}</arg>
+<status status="NOT RUN" starttime="20231028 19:34:25.445" endtime="20231028 19:34:25.445"/>
+</kw>
+<status status="FAIL" starttime="20231028 19:34:25.430" endtime="20231028 19:34:25.446">Variable '${output.strip()}' not found.</status>
+</test>
+<status status="FAIL" starttime="20231028 19:34:25.313" endtime="20231028 19:34:25.447"/>
+</suite>
+<status status="FAIL" starttime="20231028 19:34:25.310" endtime="20231028 19:34:25.448"/>
+</suite>
+<status status="FAIL" starttime="20231028 19:34:25.290" endtime="20231028 19:34:25.449"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Android-Testing">Android-Testing</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1" name="Test Suites">Android-Testing.Test Suites</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1-s1" name="First Test Case">Android-Testing.Test Suites.First Test Case</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20231028 19:34:25.316" level="ERROR">Error in file '/home/yasser_jemli/Android-Testing/resources/config/android_config.robot' on line 4: Setting variable '${PLATFORM_VERSION} YourAndroidVersion' failed: Invalid variable name '${PLATFORM_VERSION} YourAndroidVersion'.</msg>
+</errors>
+</robot>
