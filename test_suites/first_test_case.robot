@@ -8,3 +8,6 @@ Get Device Name Test
     Check for Connected ADB Device
     ${device_name} =    Get Android Device Name
     Drop Down the Notification Bar    ${device_name}
+    Raise up the Notification Bar     ${device_name}
+
+

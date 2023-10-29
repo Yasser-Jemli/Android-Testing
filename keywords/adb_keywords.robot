@@ -29,9 +29,20 @@ Get Android Device Name
 
 Drop Down the Notification Bar 
     [Arguments]    ${device_name}
-    ${notification_bar_state_before}    Run Process    adb shell dumpsys statusbar | grep mDisableRecords.size     shell=True
+    ${notification_bar_state_before}    Run Process    adb -s ${device_name} shell dumpsys statusbar | grep mDisableRecords.size     shell=True
     Log    ${notification_bar_state_before.stdout}
-    Run Process        adb -s ${device_name} shell input swipe 500 0 500 1000 300      shell=True
-    ${notification_bar_state_after}    Run Process    adb shell dumpsys statusbar | grep mDisableRecords.size     shell=True
+    Run Process        adb -s ${device_name} shell service call statusbar 1    shell=True
+    Sleep    1s
+    ${notification_bar_state_after}    Run Process     adb -s ${device_name} shell dumpsys statusbar | grep mDisableRecords.size     shell=True
+    Log    ${notification_bar_state_after.stdout}
+    Should Not Be Equal    ${notification_bar_state_before.stdout}    ${notification_bar_state_after.stdout}    Notification bar not opened
+
+Raise up the Notification Bar
+    [Arguments]    ${device_name}
+    ${notification_bar_state_before}    Run Process    adb -s ${device_name} shell dumpsys statusbar | grep mDisableRecords.size    shell=True
+    Log    ${notification_bar_state_before.stdout}
+    Run Process    adb -s ${device_name} shell service call statusbar 2   shell=True
+    Sleep  1s
+    ${notification_bar_state_after}    Run Process    adb -s ${device_name} shell dumpsys statusbar | grep mDisableRecords.size    shell=True
     Log    ${notification_bar_state_after.stdout}
     Should Not Be Equal    ${notification_bar_state_before.stdout}    ${notification_bar_state_after.stdout}    Notification bar not opened
