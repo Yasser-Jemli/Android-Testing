@@ -69,3 +69,55 @@ Get Current User Profile ID
     END
     
     Log    Current User ID: ${user_id}
+
+
+Create New Profile Adb
+    [Arguments]    ${profile_name}
+    [Documentation]    Create New Profile with the given name 
+    ${user_id}    Run Process        adb shell pm create-user ${profile_name} | cut -d ' ' -f 5        shell=True
+    Log    Creating new Profile with the Name : ${profile_name} and ID : ${user_id.stdout}
+    Log To Console     ${\n}Creating new Profile with the Name : ${profile_name} and ID : ${user_id.stdout}
+    Run Process    adb shell am switch-user ${user_id.stdout}    shell=True
+    Run Keyword And Ignore Error    Tap Element    ${outlinr/rlb_vehicle_updates_later}    access=TEXT    scroll=NO
+    Log    Switched to user Profile ${profile_name} with ID : ${user_id.stdout}
+    DO WAIT    1000
+    Run Keyword And Ignore Error    Check Elements Displayed    ${setupwizard suw_welcome begin}    scroll=NO    Wait=500ms    
+    DO WAIT    1000
+    
+
+
+List and Switch User Profile
+    [Arguments]    ${selected_name}
+    [Documentation]    list Profiles to get the ID of the given name profile and then switch to that profile using extracted ID 
+    ${output} =    Run Process    adb shell pm list users | cut -d '{' -f2 | cut -d '}' -f1 | cut -d ':' -f1,2     shell=True
+    ${lines} =  Split To Lines  ${output.stdout}
+    Log     extracted Profile : ${lines}
+    Log To Console    ${\n} extracted Profile : ${lines}
+    ${user_ids_and_profiles} =  Create Dictionary
+    FOR  ${line}  IN  @{lines}
+            ${user_id}  ${profile_name} =  Split String  ${line}  :  
+            Set To Dictionary  ${user_ids_and_profiles}  ${user_id}  ${profile_name}
+    END
+    ${user_info} =  Get Dictionary Items  ${user_ids_and_profiles}
+    FOR  ${user_id}  ${profile_name}  IN  @{user_info}
+        Run Keyword If  '${profile_name}' == '${selected_name}'
+            ...  Run Keyword      Run Process      adb shell am switch-user ${user_id}        shell=True                
+    END
+
+List and remmove User Profile
+    [Arguments]    ${selected_name}
+    [Documentation]    list Profiles to get the ID of the given name profile and then remove that profile using extracted ID 
+    ${output} =    Run Process    adb shell pm list users | cut -d '{' -f2 | cut -d '}' -f1 | cut -d ':' -f1,2     shell=True
+    ${lines} =  Split To Lines  ${output.stdout}
+    Log     extracted Profile : ${lines}
+    Log To Console    ${\n} extracted Profile : ${lines}
+    ${user_ids_and_profiles} =  Create Dictionary
+    FOR  ${line}  IN  @{lines}
+            ${user_id}  ${profile_name} =  Split String  ${line}  :  
+            Set To Dictionary  ${user_ids_and_profiles}  ${user_id}  ${profile_name}
+    END
+    ${user_info} =  Get Dictionary Items  ${user_ids_and_profiles}
+    FOR  ${user_id}  ${profile_name}  IN  @{user_info}
+        Run Keyword If  '${profile_name}' == '${selected_name}'
+            ...  Run Keyword      Run Process      adb shell pm remove-user ${user_id}        shell=True                
+    END
