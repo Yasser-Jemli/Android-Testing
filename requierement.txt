@@ -1,6 +1,4 @@
-pip install robotframework
-pip install robotframework-appiumlibrary
+robotframework
+robotframework-appiumlibrary
 sudo apt install npm
 npm install -g appium // shall be run as sudo in same cases
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-source ~/.nvm/nvm.sh
