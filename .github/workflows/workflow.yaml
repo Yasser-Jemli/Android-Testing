@@ -18,5 +18,8 @@ jobs:
     - name: Install Robot Framework
       run: pip install robotframework
 
+    - name: Install Appium 
+      run: pip install robotframework-appiumlibrary
+
     - name: Run Robot Framework tests
       run: robot test_suites/
