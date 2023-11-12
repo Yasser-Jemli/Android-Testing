@@ -24,6 +24,6 @@ EXPOSE 4723
 ENV APPIUM_SERVER_URL http://localhost:4723/wd/hub
 
 # Specify the default command to run when the container starts
-CMD ["bash", "-c", "source venv/bin/activate && echo 'Docker container is ready. You can now manually execute your tests.' && tail -f /dev/null"]
+CMD ["bash", "-c", "source venv/bin/activate"]
 
 
