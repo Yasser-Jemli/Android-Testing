@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Start the Appium server (modify the path to appium if needed)
-appium &
 
 # Wait for Appium to start (modify the sleep time as needed)
 sleep 10
@@ -21,5 +19,4 @@ APP_ACTIVITY=".MainActivity"
 robot -d results -v DEVICE_NAME:"$DEVICE_NAME" -v PLATFORM_NAME:"$PLATFORM_NAME" -v PLATFORM_VERSION:"$PLATFORM_VERSION" -v APP_PACKAGE:"$APP_PACKAGE" -v APP_ACTIVITY:"$APP_ACTIVITY" "$TEST_SUITE_1"
 robot -d results -v DEVICE_NAME:"$DEVICE_NAME" -v PLATFORM_NAME:"$PLATFORM_NAME" -v PLATFORM_VERSION:"$PLATFORM_VERSION" -v APP_PACKAGE:"$APP_PACKAGE" -v APP_ACTIVITY:"$APP_ACTIVITY" "$TEST_SUITE_2"
 
-# Stop the Appium server (modify the path to appium if needed)
-pkill -f appium
+

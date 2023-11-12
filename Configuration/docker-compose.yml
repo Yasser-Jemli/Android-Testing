@@ -1,0 +1,8 @@
+version: '3'
+services:
+  appium-robot:
+    build:
+      context: .
+    volumes:
+      - /home/celadodc-rswl.com/yasser.jamli/Android-Testing:/app/tests
+
