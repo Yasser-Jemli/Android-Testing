@@ -3,11 +3,10 @@ services:
   appium-robot:
     build:
       context: .
-    image: your/appium-robot-image
     volumes:
+      - /usr/bin/adb:/usr/local/bin/adb
       - /home/celadodc-rswl.com/yasser.jamli/Android-Testing:/app/tests
       - /dev:/app/dev
       - /home/celadodc-rswl.com/yasser.jamli/platform-tools:/app/platform-tools
     command: ["tail", "-f", "/dev/null"]
-
 
