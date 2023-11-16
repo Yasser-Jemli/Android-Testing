@@ -1,14 +1,19 @@
 *** Settings ***
 
 Library    OperatingSystem
-Library    AppiumLibrary
+# Library    AppiumLibrary
 Library    Process
 Library    String
+Library    XML
+Library    Process
 
 *** Variables ***
 
 ${ADB_COMMAND}    adb devices | grep -v "List of devices attached" | cut -f1 | tr -d '[:space:]'
-
+${XML File Path}    ${CURDIR}/ui_dump.xml
+${Search Text}      Township
+${Local Dump File}      /home/celadodc-rswl.com/yasser.jamli/Android-Testing/ui_dump.xml
+${ADB}    adb
 
 *** Keywords ***
 
@@ -121,3 +126,33 @@ List and remmove User Profile
         Run Keyword If  '${profile_name}' == '${selected_name}'
             ...  Run Keyword      Run Process      adb shell pm remove-user ${user_id}        shell=True                
     END
+
+*** Keywords ***
+Check If Text Is Present
+    Run ADB Commands
+    Parse And Check Text
+
+Run ADB Commands
+    ${result1}=    Run Process    ${ADB}    shell    uiautomator dump /sdcard/ui_dump.xml    shell=True
+    Log    ${result1.stdout}
+    ${result2}=    Run Process    ${ADB}    pull     /sdcard/ui_dump.xml        shell=True
+    Log    ${result2.stdout}
+    
+
+
+Parse And Check Text
+    ${tree}=    XML.Parse Xml    ${Local Dump File}
+    ${root}=    XML.Get Element    ${tree}
+    ${elements}=    XML.Get Elements    ${root}    node
+    FOR    ${elem}    IN    @{elements}
+        Log    ${elem.tag}  # Log the tag of each element
+        ${attributes}=    XML.Get Element Attributes    ${elem}  # Log all attributes of each element
+        Log    ${attributes}
+        ${text}=    XML.Element To String    ${elem}  # Log the complete XML content of each element
+        Log    ${text}
+    END
+    # IF    ${found}    
+    #     Log    Text '${Search Text}' found on the screen.
+    # ELSE
+    #     Fail   Text '${Search Text}' not found on the screen.
+    # END
