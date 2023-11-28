@@ -156,3 +156,23 @@ Parse And Check Text
     # ELSE
     #     Fail   Text '${Search Text}' not found on the screen.
     # END
+
+Dump screen and get the current Time using Adb 
+    [Arguements]    ${specifique_ressource_ID}
+    [Documentation]    this is a worearound for dumping the current activity and extracted the Text attribute of a specifique Ressouce ID 
+    # This command to insure that the adb will run correctly and we will get the UI dump successfully 
+    Run Process    adb reconnect      shell=True
+    DO WAIT    1000
+    ${output}=    Run Process    adb wait-for-device shell uiautomator dump /sdcard/window_dump.xml        shell=True
+    Log    ${output.stdout}
+    ${output}=    Run Process    adb wait-for-device pull /sdcard/window_dump.xml          shell=True
+    Log    ${output.stdout}
+    ${output}=    Run Process    python3 Get_element_Text_Attribut-By_ID.py window_dump.xml ${specifique_ressource_ID}        shell=True
+    Log    ${output.stdout}
+    @{values}=    Split String    ${output.stdout}    
+    Log Many    @{values}
+    # Cleaning up the Board of the previous UI dump 
+    ${output}=      Run Process    adb shell rm -rf /sdcard/window_dump.xml    shell=True
+    # Delet the current UI dump XML file from Hmi_iat Directory
+    ${output}=      Run Process    rm -rf window_dump.xml              shell=True
+    [Return]    ${value_1}     ${value_2} 
