@@ -201,14 +201,15 @@ Display Alert Popup
     Run    zenity --info --text="${message}" --title="Alert"
 
 Display Toast with Auto-Close
-    [Arguments]    ${message}    ${duration}=1
+    [Arguments]    ${message}    ${duration}=1    ${Timeout}=5
     ${message}=    Set Variable    "This is a toast message"
     ${title}=    Set Variable    "Toast Popup"
     ${command}=    Set Variable    zenity --info --text=${message} --title=${title}
-    Run Process    ${command}       timeout=10     shell=True
+    Run Process    ${command}       timeout=${Timeout}     shell=True
     Sleep    ${duration}
     Get Zenity PID and Kill Process  # Close the zenity notification window
     # This HLK need to be updated and using the the bash variable $? to see the return of the command
+    # This was Fixed By adding the HLK Get Zenity PID and Kill Process
 
 Get Zenity PID and Kill Process
     ${ps_output}=    Run    ps -axl | grep "zenity --info"
