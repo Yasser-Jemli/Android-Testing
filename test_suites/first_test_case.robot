@@ -13,5 +13,4 @@ Get Device Name Test
     # # Get Current User Profile name   ${device_name}    # robotcode: ignore
     # # Get Current User Profile ID    ${device_name}    # robotcode: ignore
     # Check If Text Is Present
-    Display Alert Popup    message=Hello!
-    Sleep      100
+    Display Toast with Auto-Close    message= Run is Failed 

@@ -186,12 +186,12 @@ Display Toast Popup
     Close Browser
 
 # For Mac OS or windows System Notif Popup
-Display System Notification
+Display System Notification For windows & Mac OS 
     [Arguments]    ${message}
     Run    osascript -e 'display notification "${message}" with title "My Robot Framework Notification"'
 
 # For Linux System Notif Popup 
-Run System Notification
+Run System Notification For LInux 
     [Arguments]    ${message}
     Run    notify-send "My Robot Framework Notification" "${message}"
 
@@ -199,3 +199,10 @@ Run System Notification
 Display Alert Popup
     [Arguments]    ${message}
     Run    zenity --info --text="${message}" --title="Alert"
+
+Display Toast with Auto-Close
+    [Arguments]    ${message}    ${duration}=1
+    Run    zenity --info --text="${message}" --title="Toast Popup" 
+    Sleep    ${duration}
+    Run    kill $(pgrep -f "zenity --info")  # Close the zenity notification window
+    # This HLK need to be updated and using the the bash variable $? to see the return of the command 

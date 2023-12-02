@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1 (Python 3.8.10 on linux)" generated="20231202 23:02:34.412" rpa="false" schemaversion="4">
+<robot generator="Robot 6.1 (Python 3.8.10 on linux)" generated="20231202 23:11:58.647" rpa="false" schemaversion="4">
 <suite id="s1" name="First Test Case" source="/home/celadodc-rswl.com/yasser.jamli/Android-Testing/test_suites/first_test_case.robot">
 <test id="s1-t1" name="Get Device Name Test" line="7">
-<kw name="Display Alert Popup" library="adb_keywords">
-<arg>message=Hello!</arg>
+<kw name="Display Toast with Auto-Close" library="adb_keywords">
+<arg>message= Run is Failed</arg>
 <kw name="Run" library="OperatingSystem">
-<arg>zenity --info --text="${message}" --title="Alert"</arg>
+<arg>zenity --info --text="${message}" --title="Toast Popup" &amp;</arg>
 <doc>Runs the given command in the system and returns the output.</doc>
-<msg timestamp="20231202 23:02:34.617" level="INFO">Running command 'zenity --info --text="Hello!" --title="Alert" 2&gt;&amp;1'.</msg>
-<status status="PASS" starttime="20231202 23:02:34.615" endtime="20231202 23:02:39.067"/>
-</kw>
-<status status="PASS" starttime="20231202 23:02:34.614" endtime="20231202 23:02:39.068"/>
+<msg timestamp="20231202 23:11:58.841" level="INFO">Running command 'zenity --info --text=" Run is Failed" --title="Toast Popup"  2&gt;&amp;1 &amp;'.</msg>
+<status status="FAIL" starttime="20231202 23:11:58.838" endtime="20231202 23:12:02.998"/>
 </kw>
 <kw name="Sleep" library="BuiltIn">
-<arg>100</arg>
+<arg>${duration}</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="FAIL" starttime="20231202 23:02:39.070" endtime="20231202 23:03:04.848"/>
+<status status="NOT RUN" starttime="20231202 23:12:02.999" endtime="20231202 23:12:02.999"/>
 </kw>
-<status status="FAIL" starttime="20231202 23:02:34.613" endtime="20231202 23:03:04.850">Execution terminated by signal</status>
+<kw name="Run" library="OperatingSystem">
+<arg>kill $(pgrep -f "zenity --info")</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<status status="NOT RUN" starttime="20231202 23:12:02.999" endtime="20231202 23:12:02.999"/>
+</kw>
+<status status="FAIL" starttime="20231202 23:11:58.838" endtime="20231202 23:12:02.999"/>
+</kw>
+<status status="FAIL" starttime="20231202 23:11:58.837" endtime="20231202 23:12:02.999">Execution terminated by signal</status>
 </test>
-<status status="FAIL" starttime="20231202 23:02:34.414" endtime="20231202 23:03:04.855"/>
+<status status="FAIL" starttime="20231202 23:11:58.647" endtime="20231202 23:12:03.000"/>
 </suite>
 <statistics>
 <total>
@@ -32,6 +37,6 @@
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20231202 23:02:34.432" level="WARN">Imported resource file '/home/celadodc-rswl.com/yasser.jamli/Android-Testing/resources/config/android_config.robot' is empty.</msg>
+<msg timestamp="20231202 23:11:58.666" level="WARN">Imported resource file '/home/celadodc-rswl.com/yasser.jamli/Android-Testing/resources/config/android_config.robot' is empty.</msg>
 </errors>
 </robot>
