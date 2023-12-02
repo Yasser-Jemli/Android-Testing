@@ -6,6 +6,7 @@ Library    Process
 Library    String
 Library    XML
 Library    Process
+Library    SeleniumLibrary
 
 *** Variables ***
 
@@ -176,3 +177,25 @@ Dump screen and get the current Time using Adb
     # Delet the current UI dump XML file from Hmi_iat Directory
     ${output}=      Run Process    rm -rf window_dump.xml              shell=True
     [Return]    ${value_1}     ${value_2} 
+
+
+Display Toast Popup
+    Open Browser    https://www.youtube.com/watch?v=E3iliL2OH2o    Chrome
+    Execute JavaScript    alert('This is a toast popup!')
+    DO WAIT    7000
+    Close Browser
+
+# For Mac OS or windows System Notif Popup
+Display System Notification
+    [Arguments]    ${message}
+    Run    osascript -e 'display notification "${message}" with title "My Robot Framework Notification"'
+
+# For Linux System Notif Popup 
+Run System Notification
+    [Arguments]    ${message}
+    Run    notify-send "My Robot Framework Notification" "${message}"
+
+# For Linux System : Alret Popup 
+Display Alert Popup
+    [Arguments]    ${message}
+    Run    zenity --info --text="${message}" --title="Alert"

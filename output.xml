@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.8.10 on linux)" generated="20231202 23:02:34.412" rpa="false" schemaversion="4">
+<suite id="s1" name="First Test Case" source="/home/celadodc-rswl.com/yasser.jamli/Android-Testing/test_suites/first_test_case.robot">
+<test id="s1-t1" name="Get Device Name Test" line="7">
+<kw name="Display Alert Popup" library="adb_keywords">
+<arg>message=Hello!</arg>
+<kw name="Run" library="OperatingSystem">
+<arg>zenity --info --text="${message}" --title="Alert"</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<msg timestamp="20231202 23:02:34.617" level="INFO">Running command 'zenity --info --text="Hello!" --title="Alert" 2&gt;&amp;1'.</msg>
+<status status="PASS" starttime="20231202 23:02:34.615" endtime="20231202 23:02:39.067"/>
+</kw>
+<status status="PASS" starttime="20231202 23:02:34.614" endtime="20231202 23:02:39.068"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>100</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="FAIL" starttime="20231202 23:02:39.070" endtime="20231202 23:03:04.848"/>
+</kw>
+<status status="FAIL" starttime="20231202 23:02:34.613" endtime="20231202 23:03:04.850">Execution terminated by signal</status>
+</test>
+<status status="FAIL" starttime="20231202 23:02:34.414" endtime="20231202 23:03:04.855"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="First Test Case">First Test Case</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20231202 23:02:34.432" level="WARN">Imported resource file '/home/celadodc-rswl.com/yasser.jamli/Android-Testing/resources/config/android_config.robot' is empty.</msg>
+</errors>
+</robot>
