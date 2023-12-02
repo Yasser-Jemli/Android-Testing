@@ -206,7 +206,7 @@ Display Toast with Auto-Close
     ${title}=    Set Variable    "Toast Popup"
     ${command}=    Set Variable    zenity --info --text=${message} --title=${title}
     Run Process    ${command}       timeout=10     shell=True
-    # Sleep    ${duration}
+    Sleep    ${duration}
     Get Zenity PID and Kill Process  # Close the zenity notification window
     # This HLK need to be updated and using the the bash variable $? to see the return of the command
 
