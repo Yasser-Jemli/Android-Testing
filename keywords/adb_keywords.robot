@@ -202,7 +202,19 @@ Display Alert Popup
 
 Display Toast with Auto-Close
     [Arguments]    ${message}    ${duration}=1
-    Run    zenity --info --text="${message}" --title="Toast Popup" 
-    Sleep    ${duration}
-    Run    kill $(pgrep -f "zenity --info")  # Close the zenity notification window
-    # This HLK need to be updated and using the the bash variable $? to see the return of the command 
+    ${message}=    Set Variable    "This is a toast message"
+    ${title}=    Set Variable    "Toast Popup"
+    ${command}=    Set Variable    zenity --info --text=${message} --title=${title}
+    Run Process    ${command}       timeout=10     shell=True
+    # Sleep    ${duration}
+    Get Zenity PID and Kill Process  # Close the zenity notification window
+    # This HLK need to be updated and using the the bash variable $? to see the return of the command
+
+Get Zenity PID and Kill Process
+    ${ps_output}=    Run    ps -axl | grep "zenity --info"
+    @{ps_lines}=    Split To Lines    ${ps_output}
+    FOR    ${line}    IN    @{ps_lines}
+        ${columns}=    Split String    ${line}
+        ${pid}=    Set Variable    ${columns[2]}
+        Run Keyword If    "${pid}" != "PID"    Run Process     kill -9 ${pid}    shell=True
+    END
