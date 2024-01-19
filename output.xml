@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.8.10 on linux)" generated="20231202 23:47:53.772" rpa="false" schemaversion="4">
+<suite id="s1" name="First Test Case" source="/home/celadodc-rswl.com/yasser.jamli/Android-Testing/test_suites/first_test_case.robot">
+<test id="s1-t1" name="Get Device Name Test" line="7">
+<kw name="Display Toast with Auto-Close" library="adb_keywords">
+<arg>message= Run is Failed</arg>
+<kw name="Set Variable" library="BuiltIn">
+<var>${message}</var>
+<arg>"This is a toast message"</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231202 23:47:53.960" level="INFO">${message} = "This is a toast message"</msg>
+<status status="PASS" starttime="20231202 23:47:53.960" endtime="20231202 23:47:53.960"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${title}</var>
+<arg>"Toast Popup"</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231202 23:47:53.961" level="INFO">${title} = "Toast Popup"</msg>
+<status status="PASS" starttime="20231202 23:47:53.961" endtime="20231202 23:47:53.961"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${command}</var>
+<arg>zenity --info --text=${message} --title=${title}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231202 23:47:53.961" level="INFO">${command} = zenity --info --text="This is a toast message" --title="Toast Popup"</msg>
+<status status="PASS" starttime="20231202 23:47:53.961" endtime="20231202 23:47:53.961"/>
+</kw>
+<kw name="Run Process" library="Process">
+<arg>${command}</arg>
+<arg>timeout=10</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20231202 23:47:53.962" level="INFO">Starting process:
+zenity --info --text="This is a toast message" --title="Toast Popup"</msg>
+<msg timestamp="20231202 23:47:53.965" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20231202 23:48:03.983" level="INFO">Process did not complete in 10 seconds.</msg>
+<msg timestamp="20231202 23:48:03.983" level="INFO">Gracefully terminating process.</msg>
+<msg timestamp="20231202 23:48:04.083" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20231202 23:47:53.961" endtime="20231202 23:48:04.084"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>${duration}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231202 23:48:05.085" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231202 23:48:04.084" endtime="20231202 23:48:05.085"/>
+</kw>
+<kw name="Get Zenity PID and Kill Process" library="adb_keywords">
+<kw name="Run" library="OperatingSystem">
+<var>${ps_output}</var>
+<arg>ps -axl | grep "zenity --info"</arg>
+<doc>Runs the given command in the system and returns the output.</doc>
+<msg timestamp="20231202 23:48:05.087" level="INFO">Running command 'ps -axl | grep "zenity --info" 2&gt;&amp;1'.</msg>
+<msg timestamp="20231202 23:48:05.102" level="INFO">${ps_output} = 0 1353401794 28480 28422 20   0   2620   600 do_wai S+   pts/1      0:00 /bin/sh -c ps -axl | grep "zenity --info" 2&gt;&amp;1
+0 1353401794 28482 28480 20   0   9052   716 pipe_r S+   pts/1      0:00 grep ze...</msg>
+<status status="PASS" starttime="20231202 23:48:05.085" endtime="20231202 23:48:05.102"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>@{ps_lines}</var>
+<arg>${ps_output}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20231202 23:48:05.103" level="INFO">2 lines returned</msg>
+<msg timestamp="20231202 23:48:05.103" level="INFO">@{ps_lines} = [ 0 1353401794 28480 28422 20   0   2620   600 do_wai S+   pts/1      0:00 /bin/sh -c ps -axl | grep "zenity --info" 2&gt;&amp;1 | 0 1353401794 28482 28480 20   0   9052   716 pipe_r S+   pts/1      0:00 gre...</msg>
+<status status="PASS" starttime="20231202 23:48:05.103" endtime="20231202 23:48:05.103"/>
+</kw>
+<for flavor="IN">
+<var>${line}</var>
+<value>@{ps_lines}</value>
+<iter>
+<var name="${line}">0 1353401794 28480 28422 20   0   2620   600 do_wai S+   pts/1      0:00 /bin/sh -c ps -axl | grep "zenity --info" 2&gt;&amp;1</var>
+<kw name="Split String" library="String">
+<var>${columns}</var>
+<arg>${line}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20231202 23:48:05.104" level="INFO">${columns} = ['0', '1353401794', '28480', '28422', '20', '0', '2620', '600', 'do_wai', 'S+', 'pts/1', '0:00', '/bin/sh', '-c', 'ps', '-axl', '|', 'grep', '"zenity', '--info"', '2&gt;&amp;1']</msg>
+<status status="PASS" starttime="20231202 23:48:05.104" endtime="20231202 23:48:05.104"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${pid}</var>
+<arg>${columns[2]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231202 23:48:05.105" level="INFO">${pid} = 28480</msg>
+<status status="PASS" starttime="20231202 23:48:05.104" endtime="20231202 23:48:05.105"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>"${pid}" != "PID"</arg>
+<arg>Run Process</arg>
+<arg>kill -9 ${pid}</arg>
+<arg>shell=True</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Run Process" library="Process">
+<arg>kill -9 ${pid}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20231202 23:48:05.105" level="INFO">Starting process:
+kill -9 28480</msg>
+<msg timestamp="20231202 23:48:05.110" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20231202 23:48:05.110" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20231202 23:48:05.105" endtime="20231202 23:48:05.111"/>
+</kw>
+<status status="PASS" starttime="20231202 23:48:05.105" endtime="20231202 23:48:05.111"/>
+</kw>
+<status status="PASS" starttime="20231202 23:48:05.104" endtime="20231202 23:48:05.111"/>
+</iter>
+<iter>
+<var name="${line}">0 1353401794 28482 28480 20   0   9052   716 pipe_r S+   pts/1      0:00 grep zenity --info</var>
+<kw name="Split String" library="String">
+<var>${columns}</var>
+<arg>${line}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20231202 23:48:05.112" level="INFO">${columns} = ['0', '1353401794', '28482', '28480', '20', '0', '9052', '716', 'pipe_r', 'S+', 'pts/1', '0:00', 'grep', 'zenity', '--info']</msg>
+<status status="PASS" starttime="20231202 23:48:05.112" endtime="20231202 23:48:05.112"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${pid}</var>
+<arg>${columns[2]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231202 23:48:05.113" level="INFO">${pid} = 28482</msg>
+<status status="PASS" starttime="20231202 23:48:05.112" endtime="20231202 23:48:05.113"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>"${pid}" != "PID"</arg>
+<arg>Run Process</arg>
+<arg>kill -9 ${pid}</arg>
+<arg>shell=True</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Run Process" library="Process">
+<arg>kill -9 ${pid}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20231202 23:48:05.114" level="INFO">Starting process:
+kill -9 28482</msg>
+<msg timestamp="20231202 23:48:05.117" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20231202 23:48:05.117" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20231202 23:48:05.113" endtime="20231202 23:48:05.117"/>
+</kw>
+<status status="PASS" starttime="20231202 23:48:05.113" endtime="20231202 23:48:05.117"/>
+</kw>
+<status status="PASS" starttime="20231202 23:48:05.111" endtime="20231202 23:48:05.117"/>
+</iter>
+<status status="PASS" starttime="20231202 23:48:05.103" endtime="20231202 23:48:05.117"/>
+</for>
+<status status="PASS" starttime="20231202 23:48:05.085" endtime="20231202 23:48:05.118"/>
+</kw>
+<status status="PASS" starttime="20231202 23:47:53.960" endtime="20231202 23:48:05.118"/>
+</kw>
+<status status="PASS" starttime="20231202 23:47:53.958" endtime="20231202 23:48:05.118"/>
+</test>
+<status status="PASS" starttime="20231202 23:47:53.773" endtime="20231202 23:48:05.119"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="First Test Case">First Test Case</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20231202 23:47:53.790" level="WARN">Imported resource file '/home/celadodc-rswl.com/yasser.jamli/Android-Testing/resources/config/android_config.robot' is empty.</msg>
+</errors>
+</robot>

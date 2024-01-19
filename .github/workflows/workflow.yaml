@@ -1,0 +1,25 @@
+name: Robot Framework CI
+
+on: [push]
+
+jobs:
+  robot-framework:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Robot Framework
+      run: pip install robotframework
+
+    - name: Install Appium 
+      run: pip install robotframework-appiumlibrary
+
+    - name: Run Robot Framework tests
+      run: robot test_suites/

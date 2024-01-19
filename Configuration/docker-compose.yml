@@ -1,0 +1,12 @@
+version: '3'
+services:
+  appium-robot:
+    build:
+      context: .
+    volumes:
+      - /usr/bin/adb:/usr/local/bin/adb
+      - ${PWD}/Android-Testing:/app/tests
+      - /dev:/app/dev
+      - ${PWD}/platform-tools:/app/platform-tools
+    command: ["tail", "-f", "/dev/null"]
+
