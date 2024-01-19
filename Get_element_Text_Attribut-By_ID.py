@@ -1,4 +1,4 @@
-# Developed by Yasser JEMLI (f060839)
+# Developed by Yasser JEMLI 
 # Date : 24 Nov 2023
 # Purpose : Get specifique element attribute based on provided ressource-ID by examining the XML file of the UI dump .
 
