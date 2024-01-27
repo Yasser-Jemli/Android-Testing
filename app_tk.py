@@ -26,7 +26,7 @@ class App2:
         root.geometry("600x500")
         root.resizable(width=False, height=False)
 
-        root.configure(bg="#f5f5f5")  # Set background color
+        root.configure(bg="#F5F5F5")  # Set background color
 
         # Header
         header_frame = ttk.Frame(root, style="Header.TFrame")
@@ -106,31 +106,31 @@ class App2:
     def configure_styles(self, root):
         # Header Style
         root.style = ttk.Style()
-        root.style.configure("Header.TFrame", background="#009688")
+        root.style.configure("Header.TFrame", background="#333")
         root.style.configure("Header.TLabel", foreground="white", font=("Arial", 14, "bold"))
 
         # Config Style
         root.style.configure("Config.TFrame", background="#90ee90")
         root.style.configure("Config.TCheckbutton", background="#90ee90", font=("Arial", 10))
         root.style.configure("Config.TEntry", font=("Arial", 10))
-        root.style.configure("Config.TButton", background="#e9e9ed", font=("Arial", 10))
+        root.style.configure("Config.TButton", background="#333", foreground="white", font=("Arial", 10))
 
         # Flash Style
         root.style.configure("Flash.TFrame", background="#00ced1")
         root.style.configure("Flash.TLabel", font=("Arial", 10))
-        root.style.configure("Flash.TButton", background="#e9e9ed", font=("Arial", 10))
+        root.style.configure("Flash.TButton", background="#333", foreground="white", font=("Arial", 10))
 
         # VSP Style
-        root.style.configure("VSP.TFrame", background="#009688")
+        root.style.configure("VSP.TFrame", background="#333")
         root.style.configure("VSP.TLabel", font=("Arial", 10), foreground="white")
-        root.style.configure("VSP.TButton", background="#e9e9ed", font=("Arial", 10))
+        root.style.configure("VSP.TButton", background="#333", foreground="white", font=("Arial", 10))
 
         # VSPConfig Style
         root.style.configure("VSPConfig.TFrame", background="#00ced1")
-        root.style.configure("VSPConfig.TButton", background="#e9e9ed", font=("Arial", 10))
+        root.style.configure("VSPConfig.TButton", background="#333", foreground="white", font=("Arial", 10))
 
         # Footer Style
-        root.style.configure("Footer.TFrame", background="#009688")
+        root.style.configure("Footer.TFrame", background="#333")
         root.style.configure("Footer.TLabel", font=("Arial", 10), foreground="white")
 
     def board_wakeup(self):
