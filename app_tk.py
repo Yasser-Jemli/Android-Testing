@@ -26,16 +26,18 @@ class App2:
         root.geometry("600x500")
         root.resizable(width=False, height=False)
 
+        root.configure(bg="#f5f5f5")  # Set background color
+
         # Header
         header_frame = ttk.Frame(root, style="Header.TFrame")
-        header_frame.grid(row=0, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        header_frame.grid(row=0, column=0, pady=(20, 10), sticky=(tk.W, tk.E))
 
         title_label = ttk.Label(header_frame, text="HMI Auto Manual Testing", style="Header.TLabel")
         title_label.grid(row=0, column=0, padx=10, pady=10, sticky=(tk.W, tk.E))
 
         # Board Configuration & Wakeup
         config_frame = ttk.Frame(root, style="Config.TFrame")
-        config_frame.grid(row=1, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        config_frame.grid(row=1, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
 
         lawicel_checkbox = ttk.Checkbutton(config_frame, text="Lawicel", style="Config.TCheckbutton")
         lawicel_checkbox.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -54,7 +56,7 @@ class App2:
 
         # Board Flashing
         flash_frame = ttk.Frame(root, style="Flash.TFrame")
-        flash_frame.grid(row=2, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        flash_frame.grid(row=2, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
 
         select_script_label = ttk.Label(flash_frame, text="Select Your Flashing Script", style="Flash.TLabel")
         select_script_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -67,7 +69,7 @@ class App2:
 
         # Launching VSP for signal emulation
         vsp_frame = ttk.Frame(root, style="VSP.TFrame")
-        vsp_frame.grid(row=3, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        vsp_frame.grid(row=3, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
 
         start_flashing_button = ttk.Button(vsp_frame, text="Start Flashing", command=self.start_flashing, style="VSP.TButton")
         start_flashing_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -83,7 +85,7 @@ class App2:
 
         # VSP Configuration
         vsp_config_frame = ttk.Frame(root, style="VSPConfig.TFrame")
-        vsp_config_frame.grid(row=4, column=0, pady=(0, 20), sticky=(tk.W, tk.E))
+        vsp_config_frame.grid(row=4, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
 
         start_vsp_manager_button = ttk.Button(vsp_config_frame, text="Start VSP Manager", command=self.start_vsp_manager, style="VSPConfig.TButton")
         start_vsp_manager_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -93,10 +95,43 @@ class App2:
 
         # Footer
         footer_frame = ttk.Frame(root, style="Footer.TFrame")
-        footer_frame.grid(row=5, column=0, pady=(20, 0), sticky=(tk.W, tk.E))
+        footer_frame.grid(row=5, column=0, pady=(10, 0), sticky=(tk.W, tk.E))
 
         footer_label = ttk.Label(footer_frame, text="All rights reserved 2024", style="Footer.TLabel")
         footer_label.grid(row=0, column=0, padx=10, pady=10, sticky=(tk.W, tk.E))
+
+        # Configure Styles
+        self.configure_styles(root)
+
+    def configure_styles(self, root):
+        # Header Style
+        root.style = ttk.Style()
+        root.style.configure("Header.TFrame", background="#009688")
+        root.style.configure("Header.TLabel", foreground="white", font=("Arial", 14, "bold"))
+
+        # Config Style
+        root.style.configure("Config.TFrame", background="#90ee90")
+        root.style.configure("Config.TCheckbutton", background="#90ee90", font=("Arial", 10))
+        root.style.configure("Config.TEntry", font=("Arial", 10))
+        root.style.configure("Config.TButton", background="#e9e9ed", font=("Arial", 10))
+
+        # Flash Style
+        root.style.configure("Flash.TFrame", background="#00ced1")
+        root.style.configure("Flash.TLabel", font=("Arial", 10))
+        root.style.configure("Flash.TButton", background="#e9e9ed", font=("Arial", 10))
+
+        # VSP Style
+        root.style.configure("VSP.TFrame", background="#009688")
+        root.style.configure("VSP.TLabel", font=("Arial", 10), foreground="white")
+        root.style.configure("VSP.TButton", background="#e9e9ed", font=("Arial", 10))
+
+        # VSPConfig Style
+        root.style.configure("VSPConfig.TFrame", background="#00ced1")
+        root.style.configure("VSPConfig.TButton", background="#e9e9ed", font=("Arial", 10))
+
+        # Footer Style
+        root.style.configure("Footer.TFrame", background="#009688")
+        root.style.configure("Footer.TLabel", font=("Arial", 10), foreground="white")
 
     def board_wakeup(self):
         print("Board Wakeup")
