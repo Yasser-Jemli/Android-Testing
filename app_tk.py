@@ -37,7 +37,7 @@ class App2:
 
         # Board Configuration & Wakeup
         config_frame = ttk.Frame(root, style="Config.TFrame")
-        config_frame.grid(row=1, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
+        config_frame.grid(row=1, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
 
         lawicel_checkbox = ttk.Checkbutton(config_frame, text="Lawicel", style="Config.TCheckbutton")
         lawicel_checkbox.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -45,18 +45,24 @@ class App2:
         korlan_checkbox = ttk.Checkbutton(config_frame, text="Korlan", style="Config.TCheckbutton")
         korlan_checkbox.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
 
-        can0_entry = ttk.Entry(config_frame, text="can0 => ttyUSB", style="Config.TEntry")
-        can0_entry.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
+        can0_label = ttk.Label(config_frame, text="can0 => ttyUSB", style="Config.TLabel")
+        can0_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
 
-        can1_entry = ttk.Entry(config_frame, text="can1 => ttyUSB", style="Config.TEntry")
-        can1_entry.grid(row=0, column=3, padx=10, pady=10, sticky=tk.W)
+        can0_entry = ttk.Entry(config_frame, style="Config.TEntry")
+        can0_entry.grid(row=0, column=3, padx=10, pady=10, sticky=tk.W)
+
+        can1_label = ttk.Label(config_frame, text="can1 => ttyUSB", style="Config.TLabel")
+        can1_label.grid(row=0, column=4, padx=10, pady=10, sticky=tk.W)
+
+        can1_entry = ttk.Entry(config_frame, style="Config.TEntry")
+        can1_entry.grid(row=0, column=5, padx=10, pady=10, sticky=tk.W)
 
         board_wakeup_button = ttk.Button(config_frame, text="Board Wakeup", command=self.board_wakeup, style="Config.TButton")
-        board_wakeup_button.grid(row=0, column=4, padx=10, pady=10, sticky=tk.W)
+        board_wakeup_button.grid(row=0, column=6, padx=10, pady=10, sticky=tk.W)
 
         # Board Flashing
         flash_frame = ttk.Frame(root, style="Flash.TFrame")
-        flash_frame.grid(row=2, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
+        flash_frame.grid(row=2, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
 
         select_script_label = ttk.Label(flash_frame, text="Select Your Flashing Script", style="Flash.TLabel")
         select_script_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -69,7 +75,7 @@ class App2:
 
         # Launching VSP for signal emulation
         vsp_frame = ttk.Frame(root, style="VSP.TFrame")
-        vsp_frame.grid(row=3, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
+        vsp_frame.grid(row=3, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
 
         start_flashing_button = ttk.Button(vsp_frame, text="Start Flashing", command=self.start_flashing, style="VSP.TButton")
         start_flashing_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -85,7 +91,7 @@ class App2:
 
         # VSP Configuration
         vsp_config_frame = ttk.Frame(root, style="VSPConfig.TFrame")
-        vsp_config_frame.grid(row=4, column=0, pady=(0, 10), sticky=(tk.W, tk.E))
+        vsp_config_frame.grid(row=4, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
 
         start_vsp_manager_button = ttk.Button(vsp_config_frame, text="Start VSP Manager", command=self.start_vsp_manager, style="VSPConfig.TButton")
         start_vsp_manager_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
@@ -95,7 +101,7 @@ class App2:
 
         # Footer
         footer_frame = ttk.Frame(root, style="Footer.TFrame")
-        footer_frame.grid(row=5, column=0, pady=(10, 0), sticky=(tk.W, tk.E))
+        footer_frame.grid(row=5, column=0, pady=(10, 0), padx=20, sticky=(tk.W, tk.E))
 
         footer_label = ttk.Label(footer_frame, text="All rights reserved 2024", style="Footer.TLabel")
         footer_label.grid(row=0, column=0, padx=10, pady=10, sticky=(tk.W, tk.E))
@@ -112,6 +118,7 @@ class App2:
         # Config Style
         root.style.configure("Config.TFrame", background="#90ee90")
         root.style.configure("Config.TCheckbutton", background="#90ee90", font=("Arial", 10))
+        root.style.configure("Config.TLabel", font=("Arial", 10))
         root.style.configure("Config.TEntry", font=("Arial", 10))
         root.style.configure("Config.TButton", background="#333", foreground="white", font=("Arial", 10))
 
