@@ -38,25 +38,46 @@ class App2:
         common_font = tkFont.Font(family='Helvetica', size=10)
 
         # Header Label
-        GLabel_451 = tk.Label(root, text="HMI_Auto_Manual_Testing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
-        GLabel_451.place(x=0, y=0, width=600, height=25)
+        label_for_app_title = tk.Label(root, text="HMI_Auto_Manual_Testing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
+        label_for_app_title .place(x=0, y=0, width=600, height=25)
 
         # Board Configuration Label
-        GLabel_829 = tk.Label(root, text="Board Configuration & Wakeup", font=common_font, bg="#2196F3", fg="#FFFFFF")
-        GLabel_829.place(x=0, y=20, width=600, height=25)
+        label_for_board_configuration = tk.Label(root, text="Board Configuration & Wakeup", font=common_font, bg="#2196F3", fg="#FFFFFF")
+        label_for_board_configuration.place(x=0, y=20, width=600, height=25)
 
         # Checkbuttons
-        GCheckBox_765 = tk.Checkbutton(root, text="Lawicel", font=common_font, bg="#C8E6C9", fg="#333333",
-                                       command=self.GCheckBox_765_command)
-        GCheckBox_765.place(x=0, y=60, width=70, height=25)
+        Lawicel_checkbutton = tk.Checkbutton(root, text="Lawicel", font=common_font, bg="#C8E6C9", fg="#333333")
+        Lawicel_checkbutton.place(x=0, y=60, width=100, height=25)
 
-        GCheckBox_579 = tk.Checkbutton(root, text="Korlan", font=common_font, bg="#C8E6C9", fg="#333333",
-                                       command=self.GCheckBox_579_command)
-        GCheckBox_579.place(x=80, y=60, width=70, height=25)
+        Korlan_checkbutton = tk.Checkbutton(root, text="Korlan", font=common_font, bg="#C8E6C9", fg="#333333")
+        Korlan_checkbutton.place(x=0, y=90, width=100, height=25)
 
-        # Entry Widgets
-        GLineEdit_732 = tk.Entry(root, font=common_font, fg="#333333", justify="center")
-        GLineEdit_732.place(x=170, y=60, width=120, height=25)
+# ------------------------------------------------------------------------------------------------------------------------
+        # Create the Entry widget with font properties
+        Enty_for_can0_configuration = tk.Entry(root, font=("Arial", 12), fg="#333333", justify="center")
+        Enty_for_can0_configuration.place(x=120, y=60, width=120, height=25)
+
+        # Set default message
+        default_message_0 = "can0 -> ttyUSB"
+        Enty_for_can0_configuration.insert(0, default_message_0)
+        Enty_for_can0_configuration.config(fg="#777777")  # Change text color to gray
+
+        # Bind the click event to the Entry widget
+        Enty_for_can0_configuration.bind("<FocusIn>", self.on_entry_click_for_can0_configuration)
+# ------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------
+        # Create the Entry widget with font properties
+        Enty_for_can1_configuration = tk.Entry(root, font=("Arial", 12), fg="#333333", justify="center")
+        Enty_for_can1_configuration.place(x=120, y=90, width=120, height=25)
+
+        # Set default message
+        default_message_1 = "can1 -> ttyUSB"
+        Enty_for_can1_configuration.insert(0, default_message_1)
+        Enty_for_can1_configuration.config(fg="#777777")  # Change text color to gray
+
+        # Bind the click event to the Entry widget
+        Enty_for_can1_configuration.bind("<FocusIn>", self.on_entry_click_for_can1_configuration)
+# ------------------------------------------------------------------------------------------------------------------------
 
         GLineEdit_107 = tk.Entry(root, font=common_font, fg="#333333", justify="center")
         GLineEdit_107.place(x=320, y=60, width=120, height=25)
@@ -114,11 +135,7 @@ class App2:
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=common_font, bg="#4CAF50", fg="#FFFFFF")
         GLabel_574.place(x=0, y=470, width=600, height=25)
 
-    def GCheckBox_765_command(self):
-        print("Lawicel selected")
 
-    def GCheckBox_579_command(self):
-        print("Korlan selected")
 
     def GButton_154_command(self):
         print("Board wakeup button clicked")
@@ -149,6 +166,18 @@ class App2:
 
     def GButton_461_command(self):
         print("Launching VSPsim button clicked")
+
+    
+    def on_entry_click_for_can0_configuration(self,event):
+        if self.Enty_for_can0_configuration.get() == "Default Message":
+            self.Enty_for_can0_configuration.delete(0, "end")
+            self.Enty_for_can0_configuration.config(fg="#000000")  
+
+    def on_entry_click_for_can1_configuration(self,event):
+        if self.Enty_for_can1_configuration.get() == "Default Message":
+            self.Enty_for_can1_configuration.delete(0, "end")
+            self.Enty_for_can1_configuration.config(fg="#000000")  
+
 
 class AppChooser:
     def __init__(self, master):
