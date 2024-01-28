@@ -80,7 +80,7 @@ class App2:
 # ------------------------------------------------------------------------------------------------------------------------
 
         # Buttons
-        Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#F0F0F0", fg="#CC0000")
+        Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
         Board_wakeup_button.place(x=250, y=60, width=100, height=25)
 
         Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
