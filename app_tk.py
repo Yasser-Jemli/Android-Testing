@@ -34,22 +34,19 @@ class App2:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        # Define a common font
-        common_font = tkFont.Font(family='Helvetica', size=10)
-
         # Header Label
-        label_for_app_title = tk.Label(root, text="HMI_Auto_Manual_Testing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
+        label_for_app_title = tk.Label(root, text="HMI_Auto_Manual_Testing", font=("Arial", 12), bg="#4CAF50", fg="#FFFFFF")
         label_for_app_title .place(x=0, y=0, width=600, height=25)
 
         # Board Configuration Label
-        label_for_board_configuration = tk.Label(root, text="Board Configuration & Wakeup", font=common_font, bg="#2196F3", fg="#FFFFFF")
+        label_for_board_configuration = tk.Label(root, text="Board Configuration & Wakeup", font=("Arial", 12), bg="#2196F3", fg="#FFFFFF")
         label_for_board_configuration.place(x=0, y=20, width=600, height=25)
 
         # Checkbuttons
-        Lawicel_checkbutton = tk.Checkbutton(root, text="Lawicel", font=common_font, bg="#C8E6C9", fg="#333333")
+        Lawicel_checkbutton = tk.Checkbutton(root, text="Lawicel", font=("Arial", 12), bg="#C8E6C9", fg="#333333")
         Lawicel_checkbutton.place(x=0, y=60, width=100, height=25)
 
-        Korlan_checkbutton = tk.Checkbutton(root, text="Korlan", font=common_font, bg="#C8E6C9", fg="#333333")
+        Korlan_checkbutton = tk.Checkbutton(root, text="Korlan", font=("Arial", 12), bg="#C8E6C9", fg="#333333")
         Korlan_checkbutton.place(x=0, y=90, width=100, height=25)
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -87,7 +84,7 @@ class App2:
 
         Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
         Watch_scrcpy_button.place(x=250, y=90, width=100, height=25)
-
+# ---------------------------------------------------------------------------------------------------
         # Board Flashing Label
         GLabel_976 = tk.Label(root, text="Board Flashing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
         GLabel_976.place(x=0, y=180, width=600, height=25)
