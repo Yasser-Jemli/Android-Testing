@@ -91,39 +91,41 @@ class App2:
         flashing_file_selection_label.place(x=0, y=180, width=180, height=25)
 # ------------------------------------------------------------------------------------------------------------------------
         # Buttons for file selection
-        GButton_103 = tk.Button(root, text="Select Your File", font=("Arial", 10), bg="#90F090", fg="#000000")
-        GButton_103.place(x=200, y=180, width=120, height=25)
+        button_for_file_selection = tk.Button(root, text="Select Your File", font=("Arial", 10), bg="#90F090", fg="#000000")
+        button_for_file_selection.place(x=200, y=180, width=120, height=25)
 
         # Buttons for Launching the Flashing Process
-        GButton_248 = tk.Button(root, text="Start Flashing", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
-        GButton_248.place(x=350, y=180, width=120, height=25)
+        button_for_launching_the_flashing_process = tk.Button(root, text="Start Flashing", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        button_for_launching_the_flashing_process.place(x=350, y=180, width=120, height=25)
 # --------------------------------------------------------------------------------------------------------------------
-        GLabel_664 = tk.Label(root, text="Select Your vehicle_config folder", font=("Arial", 10), bg="#00CED1", fg="#333333")
-        GLabel_664.place(x=0, y=220, width=200, height=25)
+        select_your_vehicle_config_label = tk.Label(root, text="Select Your vehicle_config folder", font=("Arial", 10), bg="#00CED1", fg="#333333")
+        select_your_vehicle_config_label.place(x=0, y=220, width=200, height=25)
 
-        GButton_306 = tk.Button(root, text="Select Your Folder", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
-        GButton_306.place(x=220, y=220, width=120, height=25)
+        button_for_vehicle_config_folder_selection = tk.Button(root, text="Select Your Folder", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        button_for_vehicle_config_folder_selection.place(x=220, y=220, width=120, height=25)
 
-        GButton_801 = tk.Button(root, text="Start Pushing The config", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
-        GButton_801.place(x=360, y=220, width=160, height=25)
+        button_for_starting_vehicle_config_pushing_process = tk.Button(root, text="Start Pushing The config", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        button_for_starting_vehicle_config_pushing_process.place(x=360, y=220, width=160, height=25)
 
 # *****************************************************************************************************************************
         # Board VSP simulation Label
         signal_simulation_label = tk.Label(root, text="Signal Simulation section", font=("Arial", 14), bg="#4CAF50", fg="#FFFFFF")
         signal_simulation_label.place(x=0, y=260, width=600, height=25)
 
-        GLabel_715 = tk.Label(root, text="Select Your VSP Folder", font=("Arial", 12), bg="#00CED1", fg="#333333")
-        GLabel_715.place(x=0, y=380, width=140, height=25)
+        Select_vsp_folder_label = tk.Label(root, text="Select Your VSP Folder", font=("Arial", 10), bg="#00CED1", fg="#333333")
+        Select_vsp_folder_label.place(x=0, y=300, width=140, height=25)
 
-        GButton_604 = tk.Button(root, text="Start VSP manager", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
-                                command=self.GButton_604_command)
-        GButton_604.place(x=160, y=380, width=120, height=25)
+        select_your_vsp_folder = tk.Button(root, text="Select VSP folder" , font=("Arial",10),bg="#F0F0F0", fg="#000000")
+        select_your_vsp_folder.place(x=160,y=300,width=120,heigh=25)
 
-        GButton_461 = tk.Button(root, text="Launching VSPsim", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
-                                command=self.GButton_461_command)
-        GButton_461.place(x=300, y=380, width=140, height=25)
+        Start_vsp_manager_button = tk.Button(root, text="Start VSP manager", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        Start_vsp_manager_button.place(x=300, y=300, width=120, height=25)
 
-        # Footer Label
+        launching_vsp_sim_button = tk.Button(root, text="Launching VSPsim", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        launching_vsp_sim_button.place(x=440, y=300, width=140, height=25)
+# **************************************************************************************************************************     
+# Footer Label secion 
+ 
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=("Arial", 12), bg="#4CAF50", fg="#FFFFFF")
         GLabel_574.place(x=0, y=470, width=600, height=25)
 
