@@ -84,7 +84,7 @@ class App2:
 # ---------------------------------------------------------------------------------------------------
         # Board Flashing Label
         Board_flashing_label = tk.Label(root, text="Board Flashing section", font=("Arial", 14), bg="#4CAF50", fg="#FFFFFF")
-        Board_flashing_label.place(x=0, y=180, width=600, height=25)
+        Board_flashing_label.place(x=0, y=140, width=600, height=25)
 
         # File Selection Label
         flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script", font=("Arial", 8), bg="#00BFFF", fg="#333333")
