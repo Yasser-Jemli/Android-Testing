@@ -108,7 +108,10 @@ class App2:
         GButton_801.place(x=360, y=220, width=160, height=25)
 
 # *****************************************************************************************************************************
-        
+        # Board VSP simulation Label
+        signal_simulation_label = tk.Label(root, text="Signal Simulation section", font=("Arial", 14), bg="#4CAF50", fg="#FFFFFF")
+        signal_simulation_label.place(x=0, y=260, width=600, height=25)
+
         GLabel_715 = tk.Label(root, text="Select Your VSP Folder", font=("Arial", 12), bg="#00CED1", fg="#333333")
         GLabel_715.place(x=0, y=380, width=140, height=25)
 
