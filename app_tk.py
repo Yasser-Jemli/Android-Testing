@@ -89,19 +89,17 @@ class App2:
         # File Selection Label
         flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script", font=("Arial", 10), bg="#00BFFF", fg="#333333")
         flashing_file_selection_label.place(x=0, y=180, width=180, height=25)
-
+# ------------------------------------------------------------------------------------------------------------------------
         # Buttons for file selection
-        GButton_103 = tk.Button(root, text="Select Your File", font=("Arial", 12), bg="#90F090", fg="#000000",
-                                command=self.GButton_103_command)
-        GButton_103.place(x=210, y=230, width=120, height=25)
+        GButton_103 = tk.Button(root, text="Select Your File", font=("Arial", 10), bg="#90F090", fg="#000000")
+        GButton_103.place(x=200, y=180, width=120, height=25)
 
-        # Buttons for flashing and launching VSP
-        GButton_248 = tk.Button(root, text="Start Flashing", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
-                                command=self.GButton_248_command)
-        GButton_248.place(x=350, y=230, width=140, height=25)
-
+        # Buttons for Launching the Flashing Process
+        GButton_248 = tk.Button(root, text="Start Flashing", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        GButton_248.place(x=350, y=180, width=140, height=25)
+# --------------------------------------------------------------------------------------------------------------------
         GLabel_664 = tk.Label(root, text="Select Your vehicle_config folder", font=("Arial", 12), bg="#00CED1", fg="#333333")
-        GLabel_664.place(x=0, y=270, width=180, height=25)
+        GLabel_664.place(x=0, y=220, width=180, height=25)
 
         GButton_306 = tk.Button(root, text="Select Your Folder", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
                                 command=self.GButton_306_command)
