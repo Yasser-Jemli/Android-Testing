@@ -4,7 +4,25 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import font as tkFont
 import subprocess
+import threading
 import psutil
+
+
+class ScrcpyThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.scrcpy_process = None
+
+    def run(self):
+        # Command to run scrcpy in the background
+        scrcpy_command = "watch scrcpy"
+        # Run the command in the background
+        self.scrcpy_process = subprocess.Popen(scrcpy_command, shell=True)
+        self.scrcpy_process.wait()
+
+    def stop(self):
+        if self.scrcpy_process:
+            self.scrcpy_process.terminate()
 
 class App1:
     def __init__(self, master):
@@ -126,7 +144,11 @@ class App2:
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=("Arial", 12), bg="#3498db", fg="#ecf0f1")
         GLabel_574.place(x=0, y=470, width=600, height=25)
 
+        self.scrcpy_thread = ScrcpyThread()
 
+    def run_watch_scrcpy_function(self):
+        # Start the ScrcpyThread
+        self.scrcpy_thread.start()
     def GButton_154_command(self):
         print("Board wakeup button clicked")
 
@@ -136,10 +158,16 @@ class App2:
         # Run the command in the background
         subprocess.Popen(scrcpy_command, shell=True)
 
-    def on_closing():
+    def on_closing(self):
         # This function will be called when the Tkinter app is closed
         print("Closing the Tkinter app")
-        # Find and terminate the scrcpy process
+        # Stop the ScrcpyThread
+        self.scrcpy_thread.stop()
+        # Wait for the thread to finish
+        if self.scrcpy_thread.is_alive():  # Check if the thread is running
+            self.scrcpy_thread.join()
+
+        # Find and terminate any remaining scrcpy processes
         for process in psutil.process_iter(['pid', 'name', 'cmdline']):
             if "watch scrcpy" in ' '.join(process.info['cmdline']):
                 print(f"Terminating process: {process.info['name']} (PID: {process.info['pid']})")
@@ -208,9 +236,13 @@ class AppChooser:
         app2 = App2(app2_window)
         app2_window.mainloop()
 
+
+
 def main():
     root = tk.Tk()
     app_chooser = AppChooser(root)
+    app2_instance = App2(root)  # Fix: create an instance of App2
+    root.protocol("WM_DELETE_WINDOW", app2_instance.on_closing)    
     root.mainloop()
 
 if __name__ == "__main__":
