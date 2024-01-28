@@ -79,17 +79,12 @@ class App2:
         Enty_for_can1_configuration.bind("<FocusIn>", self.on_entry_click_for_can1_configuration)
 # ------------------------------------------------------------------------------------------------------------------------
 
-        GLineEdit_107 = tk.Entry(root, font=common_font, fg="#333333", justify="center")
-        GLineEdit_107.place(x=320, y=60, width=120, height=25)
-
         # Buttons
-        GButton_154 = tk.Button(root, text="Board wakeup", font=common_font, bg="#F0F0F0", fg="#CC0000",
-                                command=self.GButton_154_command)
-        GButton_154.place(x=470, y=60, width=100, height=25)
+        Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#F0F0F0", fg="#CC0000")
+        Board_wakeup_button.place(x=250, y=60, width=100, height=25)
 
-        GButton_59 = tk.Button(root, text="Watch Scrcpy", font=common_font, bg="#F0F0F0", fg="#000000",
-                               command=self.GButton_59_command)
-        GButton_59.place(x=470, y=100, width=100, height=25)
+        Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        Watch_scrcpy_button.place(x=250, y=90, width=100, height=25)
 
         # Board Flashing Label
         GLabel_976 = tk.Label(root, text="Board Flashing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
