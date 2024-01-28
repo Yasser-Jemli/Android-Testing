@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import font as tkFont
+import subprocess
+import psutil
 
 class App1:
     def __init__(self, master):
@@ -69,7 +71,7 @@ class App2:
         Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Board_wakeup_button.place(x=250, y=30, width=100, height=25)
 
-        Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy", font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
+        Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy",command=self.run_watch_scrcpy_function, font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Watch_scrcpy_button.place(x=250, y=60, width=100, height=25)
 
         # Board Flashing Label
@@ -128,8 +130,20 @@ class App2:
     def GButton_154_command(self):
         print("Board wakeup button clicked")
 
-    def GButton_59_command(self):
-        print("Watch Scrcpy button clicked")
+    def run_watch_scrcpy_function(self):
+    # Command to run scrcpy in the background
+        scrcpy_command = "watch scrcpy"
+        # Run the command in the background
+        subprocess.Popen(scrcpy_command, shell=True)
+
+    def on_closing():
+        # This function will be called when the Tkinter app is closed
+        print("Closing the Tkinter app")
+        # Find and terminate the scrcpy process
+        for process in psutil.process_iter(['pid', 'name', 'cmdline']):
+            if "watch scrcpy" in ' '.join(process.info['cmdline']):
+                print(f"Terminating process: {process.info['name']} (PID: {process.info['pid']})")
+                process.terminate()
 
     def GButton_103_command(self):
         file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
