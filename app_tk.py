@@ -78,7 +78,9 @@ class App2:
         # Bind the click event to the Entry widget
         Enty_for_can1_configuration.bind("<FocusIn>", self.on_entry_click_for_can1_configuration)
 # ------------------------------------------------------------------------------------------------------------------------
-
+        error_window = tk.Text(root, height=2, width=30, wrap="word", state=tk.DISABLED)
+        error_window.place(x=360, y=60, width=200 ,height=100)
+# ------------------------------------------------------------------------------------------------------------------------
         # Buttons
         Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
         Board_wakeup_button.place(x=250, y=60, width=100, height=25)
