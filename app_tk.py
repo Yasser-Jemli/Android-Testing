@@ -41,15 +41,15 @@ class App2:
 
         # Checkbuttons
         Lawicel_checkbutton = tk.Checkbutton(root, text="Lawicel", font=("Arial", 12), bg="#C8E6C9", fg="#333333")
-        Lawicel_checkbutton.place(x=0, y=60, width=100, height=25)
+        Lawicel_checkbutton.place(x=0, y=30, width=100, height=25)
 
         Korlan_checkbutton = tk.Checkbutton(root, text="Korlan", font=("Arial", 12), bg="#C8E6C9", fg="#333333")
-        Korlan_checkbutton.place(x=0, y=90, width=100, height=25)
+        Korlan_checkbutton.place(x=0, y=60, width=100, height=25)
 
 # ------------------------------------------------------------------------------------------------------------------------
         # Create the Entry widget with font properties
         Enty_for_can0_configuration = tk.Entry(root, font=("Arial", 12), fg="#333333", justify="center")
-        Enty_for_can0_configuration.place(x=120, y=60, width=120, height=25)
+        Enty_for_can0_configuration.place(x=120, y=30, width=120, height=25)
 
         # Set default message
         default_message_0 = "can0 -> ttyUSB"
@@ -62,7 +62,7 @@ class App2:
 # ------------------------------------------------------------------------------------------------------------------------
         # Create the Entry widget with font properties
         Enty_for_can1_configuration = tk.Entry(root, font=("Arial", 12), fg="#333333", justify="center")
-        Enty_for_can1_configuration.place(x=120, y=90, width=120, height=25)
+        Enty_for_can1_configuration.place(x=120, y=60, width=120, height=25)
 
         # Set default message
         default_message_1 = "can1 -> ttyUSB"
@@ -73,14 +73,14 @@ class App2:
         Enty_for_can1_configuration.bind("<FocusIn>", self.on_entry_click_for_can1_configuration)
 # ------------------------------------------------------------------------------------------------------------------------
         error_window = tk.Text(root, height=2, width=30, wrap="word", state=tk.DISABLED)
-        error_window.place(x=360, y=60, width=200 ,height=100)
+        error_window.place(x=360, y=30, width=230 ,height=100)
 # ------------------------------------------------------------------------------------------------------------------------
         # Buttons
         Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
-        Board_wakeup_button.place(x=250, y=60, width=100, height=25)
+        Board_wakeup_button.place(x=250, y=30, width=100, height=25)
 
         Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
-        Watch_scrcpy_button.place(x=250, y=90, width=100, height=25)
+        Watch_scrcpy_button.place(x=250, y=60, width=100, height=25)
 # ---------------------------------------------------------------------------------------------------
         # Board Flashing Label
         Board_flashing_label = tk.Label(root, text="Board Flashing section", font=("Arial", 14), bg="#4CAF50", fg="#FFFFFF")
