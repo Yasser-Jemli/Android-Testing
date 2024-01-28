@@ -87,8 +87,8 @@ class App2:
         Board_flashing_label.place(x=0, y=140, width=600, height=25)
 
         # File Selection Label
-        flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script", font=("Arial", 8), bg="#00BFFF", fg="#333333")
-        flashing_file_selection_label.place(x=0, y=230, width=200, height=25)
+        flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script", font=("Arial", 10), bg="#00BFFF", fg="#333333")
+        flashing_file_selection_label.place(x=0, y=180, width=180, height=25)
 
         # Buttons for file selection
         GButton_103 = tk.Button(root, text="Select Your File", font=("Arial", 12), bg="#90F090", fg="#000000",
