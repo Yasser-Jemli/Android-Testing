@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter import font as tkFont
 
 class App1:
     def __init__(self, master):
@@ -22,146 +23,132 @@ class App1:
 
 class App2:
     def __init__(self, root):
-        root.title("HMI Auto Manual Testing")
-        root.geometry("600x500")
+        # setting title
+        root.title("My Tkinter App")
+        # setting window size
+        width = 600
+        height = 500
+        screenwidth = root.winfo_screenwidth()
+        screenheight = root.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        root.configure(bg="#F5F5F5")  # Set background color
+        # Define a common font
+        common_font = tkFont.Font(family='Helvetica', size=10)
 
-        # Header
-        header_frame = ttk.Frame(root, style="Header.TFrame")
-        header_frame.grid(row=0, column=0, pady=(20, 10), sticky=(tk.W, tk.E))
+        # Header Label
+        GLabel_451 = tk.Label(root, text="HMI_Auto_Manual_Testing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
+        GLabel_451.place(x=0, y=0, width=600, height=25)
 
-        title_label = ttk.Label(header_frame, text="HMI Auto Manual Testing", style="Header.TLabel")
-        title_label.grid(row=0, column=0, padx=10, pady=10, sticky=(tk.W, tk.E))
+        # Board Configuration Label
+        GLabel_829 = tk.Label(root, text="Board Configuration & Wakeup", font=common_font, bg="#2196F3", fg="#FFFFFF")
+        GLabel_829.place(x=0, y=20, width=600, height=25)
 
-        # Board Configuration & Wakeup
-        config_frame = ttk.Frame(root, style="Config.TFrame")
-        config_frame.grid(row=1, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
+        # Checkbuttons
+        GCheckBox_765 = tk.Checkbutton(root, text="Lawicel", font=common_font, bg="#C8E6C9", fg="#333333",
+                                       command=self.GCheckBox_765_command)
+        GCheckBox_765.place(x=0, y=60, width=70, height=25)
 
-        lawicel_checkbox = ttk.Checkbutton(config_frame, text="Lawicel", style="Config.TCheckbutton")
-        lawicel_checkbox.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+        GCheckBox_579 = tk.Checkbutton(root, text="Korlan", font=common_font, bg="#C8E6C9", fg="#333333",
+                                       command=self.GCheckBox_579_command)
+        GCheckBox_579.place(x=80, y=60, width=70, height=25)
 
-        korlan_checkbox = ttk.Checkbutton(config_frame, text="Korlan", style="Config.TCheckbutton")
-        korlan_checkbox.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
+        # Entry Widgets
+        GLineEdit_732 = tk.Entry(root, font=common_font, fg="#333333", justify="center")
+        GLineEdit_732.place(x=170, y=60, width=120, height=25)
 
-        can0_label = ttk.Label(config_frame, text="can0 => ttyUSB", style="Config.TLabel")
-        can0_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
+        GLineEdit_107 = tk.Entry(root, font=common_font, fg="#333333", justify="center")
+        GLineEdit_107.place(x=320, y=60, width=120, height=25)
 
-        can0_entry = ttk.Entry(config_frame, style="Config.TEntry")
-        can0_entry.grid(row=0, column=3, padx=10, pady=10, sticky=tk.W)
+        # Buttons
+        GButton_154 = tk.Button(root, text="Board wakeup", font=common_font, bg="#F0F0F0", fg="#CC0000",
+                                command=self.GButton_154_command)
+        GButton_154.place(x=470, y=60, width=100, height=25)
 
-        can1_label = ttk.Label(config_frame, text="can1 => ttyUSB", style="Config.TLabel")
-        can1_label.grid(row=0, column=4, padx=10, pady=10, sticky=tk.W)
+        GButton_59 = tk.Button(root, text="Watch Scrcpy", font=common_font, bg="#F0F0F0", fg="#000000",
+                               command=self.GButton_59_command)
+        GButton_59.place(x=470, y=100, width=100, height=25)
 
-        can1_entry = ttk.Entry(config_frame, style="Config.TEntry")
-        can1_entry.grid(row=0, column=5, padx=10, pady=10, sticky=tk.W)
+        # Board Flashing Label
+        GLabel_976 = tk.Label(root, text="Board Flashing", font=common_font, bg="#4CAF50", fg="#FFFFFF")
+        GLabel_976.place(x=0, y=180, width=600, height=25)
 
-        board_wakeup_button = ttk.Button(config_frame, text="Board Wakeup", command=self.board_wakeup, style="Config.TButton")
-        board_wakeup_button.grid(row=0, column=6, padx=10, pady=10, sticky=tk.W)
+        # File Selection Label
+        GLabel_469 = tk.Label(root, text="Select Your Flashing Script", font=common_font, bg="#00BFFF", fg="#333333")
+        GLabel_469.place(x=0, y=230, width=180, height=25)
 
-        # Board Flashing
-        flash_frame = ttk.Frame(root, style="Flash.TFrame")
-        flash_frame.grid(row=2, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
+        # Buttons for file selection
+        GButton_103 = tk.Button(root, text="Select Your File", font=common_font, bg="#90F090", fg="#000000",
+                                command=self.GButton_103_command)
+        GButton_103.place(x=210, y=230, width=120, height=25)
 
-        select_script_label = ttk.Label(flash_frame, text="Select Your Flashing Script", style="Flash.TLabel")
-        select_script_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+        # Buttons for flashing and launching VSP
+        GButton_248 = tk.Button(root, text="Start Flashing", font=common_font, bg="#F0F0F0", fg="#000000",
+                                command=self.GButton_248_command)
+        GButton_248.place(x=350, y=230, width=140, height=25)
 
-        select_file_button = ttk.Button(flash_frame, text="Select Your File", command=self.select_file, style="Flash.TButton")
-        select_file_button.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
+        GLabel_664 = tk.Label(root, text="Select Your vehicle_config folder", font=common_font, bg="#00CED1", fg="#333333")
+        GLabel_664.place(x=0, y=270, width=180, height=25)
 
-        start_flashing_button = ttk.Button(flash_frame, text="Start Flashing", command=self.start_flashing, style="Flash.TButton")
-        start_flashing_button.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
+        GButton_306 = tk.Button(root, text="Select Your Folder", font=common_font, bg="#F0F0F0", fg="#000000",
+                                command=self.GButton_306_command)
+        GButton_306.place(x=210, y=270, width=120, height=25)
 
-        # Launching VSP for signal emulation
-        vsp_frame = ttk.Frame(root, style="VSP.TFrame")
-        vsp_frame.grid(row=3, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
+        GButton_801 = tk.Button(root, text="Start Pushing The config", font=common_font, bg="#F0F0F0", fg="#000000",
+                                command=self.GButton_801_command)
+        GButton_801.place(x=350, y=270, width=140, height=25)
 
-        start_flashing_button = ttk.Button(vsp_frame, text="Start Flashing", command=self.start_flashing, style="VSP.TButton")
-        start_flashing_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+        GLabel_715 = tk.Label(root, text="Select Your VSP Folder", font=common_font, bg="#00CED1", fg="#333333")
+        GLabel_715.place(x=0, y=380, width=140, height=25)
 
-        select_folder_label = ttk.Label(vsp_frame, text="Select Your vehicle_config folder", style="VSP.TLabel")
-        select_folder_label.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
+        GButton_604 = tk.Button(root, text="Start VSP manager", font=common_font, bg="#F0F0F0", fg="#000000",
+                                command=self.GButton_604_command)
+        GButton_604.place(x=160, y=380, width=120, height=25)
 
-        select_folder_button = ttk.Button(vsp_frame, text="Select Your Folder", command=self.select_folder, style="VSP.TButton")
-        select_folder_button.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
+        GButton_461 = tk.Button(root, text="Launching VSPsim", font=common_font, bg="#F0F0F0", fg="#000000",
+                                command=self.GButton_461_command)
+        GButton_461.place(x=300, y=380, width=140, height=25)
 
-        start_pushing_button = ttk.Button(vsp_frame, text="Start Pushing The Config", command=self.start_pushing, style="VSP.TButton")
-        start_pushing_button.grid(row=0, column=3, padx=10, pady=10, sticky=tk.W)
+        # Footer Label
+        GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=common_font, bg="#4CAF50", fg="#FFFFFF")
+        GLabel_574.place(x=0, y=470, width=600, height=25)
 
-        # VSP Configuration
-        vsp_config_frame = ttk.Frame(root, style="VSPConfig.TFrame")
-        vsp_config_frame.grid(row=4, column=0, pady=(0, 10), padx=20, sticky=(tk.W, tk.E))
+    def GCheckBox_765_command(self):
+        print("Lawicel selected")
 
-        start_vsp_manager_button = ttk.Button(vsp_config_frame, text="Start VSP Manager", command=self.start_vsp_manager, style="VSPConfig.TButton")
-        start_vsp_manager_button.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+    def GCheckBox_579_command(self):
+        print("Korlan selected")
 
-        start_vspsim_button = ttk.Button(vsp_config_frame, text="Launching VSPSim", command=self.start_vspsim, style="VSPConfig.TButton")
-        start_vspsim_button.grid(row=0, column=1, padx=10, pady=10, sticky=tk.W)
+    def GButton_154_command(self):
+        print("Board wakeup button clicked")
 
-        # Footer
-        footer_frame = ttk.Frame(root, style="Footer.TFrame")
-        footer_frame.grid(row=5, column=0, pady=(10, 0), padx=20, sticky=(tk.W, tk.E))
+    def GButton_59_command(self):
+        print("Watch Scrcpy button clicked")
 
-        footer_label = ttk.Label(footer_frame, text="All rights reserved 2024", style="Footer.TLabel")
-        footer_label.grid(row=0, column=0, padx=10, pady=10, sticky=(tk.W, tk.E))
+    def GButton_103_command(self):
+        file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
+        if file_path:
+            print("Selected File:", file_path)
 
-        # Configure Styles
-        self.configure_styles(root)
+    def GButton_248_command(self):
+        print("Start Flashing button clicked")
 
-    def configure_styles(self, root):
-        # Header Style
-        root.style = ttk.Style()
-        root.style.configure("Header.TFrame", background="#333")
-        root.style.configure("Header.TLabel", foreground="white", font=("Arial", 14, "bold"))
+    def GButton_306_command(self):
+        folder_path = filedialog.askdirectory(title="Select Your vehicle_config folder")
+        if folder_path:
+            print("Selected Folder:", folder_path)
 
-        # Config Style
-        root.style.configure("Config.TFrame", background="#90ee90")
-        root.style.configure("Config.TCheckbutton", background="#90ee90", font=("Arial", 10))
-        root.style.configure("Config.TLabel", font=("Arial", 10))
-        root.style.configure("Config.TEntry", font=("Arial", 10))
-        root.style.configure("Config.TButton", background="#333", foreground="white", font=("Arial", 10))
+    def GButton_801_command(self):
+        print("Start Pushing The config button clicked")
 
-        # Flash Style
-        root.style.configure("Flash.TFrame", background="#00ced1")
-        root.style.configure("Flash.TLabel", font=("Arial", 10))
-        root.style.configure("Flash.TButton", background="#333", foreground="white", font=("Arial", 10))
+    def GButton_604_command(self):
+        folder_path = filedialog.askdirectory(title="Select Your VSP Folder")
+        if folder_path:
+            print("Selected VSP Folder:", folder_path)
 
-        # VSP Style
-        root.style.configure("VSP.TFrame", background="#333")
-        root.style.configure("VSP.TLabel", font=("Arial", 10), foreground="white")
-        root.style.configure("VSP.TButton", background="#333", foreground="white", font=("Arial", 10))
-
-        # VSPConfig Style
-        root.style.configure("VSPConfig.TFrame", background="#00ced1")
-        root.style.configure("VSPConfig.TButton", background="#333", foreground="white", font=("Arial", 10))
-
-        # Footer Style
-        root.style.configure("Footer.TFrame", background="#333")
-        root.style.configure("Footer.TLabel", font=("Arial", 10), foreground="white")
-
-    def board_wakeup(self):
-        print("Board Wakeup")
-
-    def select_file(self):
-        file_path = filedialog.askopenfilename()
-        print(f"Selected file: {file_path}")
-
-    def start_flashing(self):
-        print("Start Flashing")
-
-    def select_folder(self):
-        folder_path = filedialog.askdirectory()
-        print(f"Selected folder: {folder_path}")
-
-    def start_pushing(self):
-        print("Start Pushing The Config")
-
-    def start_vsp_manager(self):
-        print("Start VSP Manager")
-
-    def start_vspsim(self):
-        print("Launching VSPSim")
+    def GButton_461_command(self):
+        print("Launching VSPsim button clicked")
 
 class AppChooser:
     def __init__(self, master):
