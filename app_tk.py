@@ -98,17 +98,17 @@ class App2:
         GButton_248 = tk.Button(root, text="Start Flashing", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
         GButton_248.place(x=350, y=180, width=120, height=25)
 # --------------------------------------------------------------------------------------------------------------------
-        GLabel_664 = tk.Label(root, text="Select Your vehicle_config folder", font=("Arial", 12), bg="#00CED1", fg="#333333")
-        GLabel_664.place(x=0, y=220, width=180, height=25)
+        GLabel_664 = tk.Label(root, text="Select Your vehicle_config folder", font=("Arial", 10), bg="#00CED1", fg="#333333")
+        GLabel_664.place(x=0, y=220, width=200, height=25)
 
-        GButton_306 = tk.Button(root, text="Select Your Folder", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
-                                command=self.GButton_306_command)
-        GButton_306.place(x=210, y=270, width=120, height=25)
+        GButton_306 = tk.Button(root, text="Select Your Folder", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        GButton_306.place(x=220, y=220, width=120, height=25)
 
-        GButton_801 = tk.Button(root, text="Start Pushing The config", font=("Arial", 12), bg="#F0F0F0", fg="#000000",
-                                command=self.GButton_801_command)
-        GButton_801.place(x=350, y=270, width=140, height=25)
+        GButton_801 = tk.Button(root, text="Start Pushing The config", font=("Arial", 10), bg="#F0F0F0", fg="#000000")
+        GButton_801.place(x=360, y=220, width=160, height=25)
 
+# *****************************************************************************************************************************
+        
         GLabel_715 = tk.Label(root, text="Select Your VSP Folder", font=("Arial", 12), bg="#00CED1", fg="#333333")
         GLabel_715.place(x=0, y=380, width=140, height=25)
 
