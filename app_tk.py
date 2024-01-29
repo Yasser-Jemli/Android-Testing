@@ -1,7 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import filedialog
-from tkinter import messagebox
 from tkinter import font as tkFont
 import subprocess
 import threading
@@ -168,7 +166,7 @@ class App2:
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=("Arial", 12), bg="#3498db", fg="#ecf0f1")
         GLabel_574.place(x=0, y=470, width=600, height=25)
 
-
+        self.error_message_box = None
 # ************************* Scrcpy Functions *****************************************************************************************
         
     def run_watch_scrcpy_function(self):
@@ -228,9 +226,12 @@ class App2:
                
     # Global variable to store the file path
     selected_file_path = None
+    
 
     def destroy_error_message(self):
+        if self.error_message_box:
             self.error_message_box.destroy()
+            self.error_message_box = None
 
     def get_file_path(self):
         global selected_file_path
@@ -239,12 +240,21 @@ class App2:
 
         if not selected_file_path:
             # Display a message box if the user cancels the file selection
-            self.error_message_box = messagebox.showinfo("File Selection Canceled", "File selection canceled. Please try again.", icon='error')
+            self.error_message_box = tk.Toplevel(self.master)
+            self.error_message_box.title("Error")
+            self.error_message_box.geometry("300x100")
+            label = tk.Label(self.error_message_box, text="File selection canceled. Please try again.", font=("Arial", 10))
+            label.pack(pady=10)
             # After 2 seconds, destroy the message box
             self.master.after(2000, self.destroy_error_message)
         else:
             # The file was selected successfully
-            self.error_message_box = messagebox.showinfo("The file was selected Correctly", "Thanks !")
+            self.error_message_box = tk.Toplevel(self.master)
+            self.error_message_box.title("Success")
+            self.error_message_box.geometry("300x100")
+            label = tk.Label(self.error_message_box, text="The file was selected correctly. Thanks!", font=("Arial", 10))
+            label.pack(pady=10)
+            # After 2 seconds, destroy the message box
             self.master.after(2000, self.destroy_error_message)
         
     def execute_script():
