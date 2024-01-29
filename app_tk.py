@@ -121,11 +121,11 @@ class App2:
         Board_flashing_label.place(x=0, y=140, width=600, height=25)
 
         # File Selection Label
-        flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script", font=("Arial", 10), bg="#27ae60", fg="#ecf0f1")
+        flashing_file_selection_label = tk.Label(root, text="Select Your Flashing Script",font=("Arial", 10), bg="#27ae60", fg="#ecf0f1")
         flashing_file_selection_label.place(x=0, y=180, width=180, height=25)
 
         # Buttons for file selection
-        button_for_file_selection = tk.Button(root, text="Select Your File", font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
+        button_for_file_selection = tk.Button(root, text="Select Your File", command=self.get_file_path,font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         button_for_file_selection.place(x=200, y=180, width=120, height=25)
 
         # Buttons for Launching the Flashing Process
@@ -224,20 +224,46 @@ class App2:
         self.master.destroy()
 
 # ******************************************************************************************************************************************************************
+# ************************************* functions for the flashing Process **************************************
+               
+    # Global variable to store the file path
+    selected_file_path = None
+
+    def get_file_path(self):
+        global selected_file_path
+        # Ask user to select the flashing script
+        selected_file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
         
-    def GButton_103_command(self):
-    # Ask user to select the flashing script
-        file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
-
-        if file_path:
-            print("Selected File:", file_path)
-
+        if not selected_file_path:
+            # Display a message box if the user cancels the file selection
+            messagebox.showinfo("File Selection Canceled", "File selection canceled. Please try again.", icon='error')
+            # After 2 seconds, destroy the message box
+            self.after(2000, lambda: messagebox.destroy('error_message'))
+        else:
+            # the file was selected successfully
+            messagebox.showinfo("The file was selected Correctly","Thanks !")
+            self.after(2000, lambda:messagebox.destroy('info_message'))
+        
+    def execute_script():
+        global selected_file_path
+        if selected_file_path:
             # Extract the directory of the selected file
-            script_dir = os.path.dirname(file_path)
+            script_dir = os.path.dirname(selected_file_path)
+
+            # Check if the script needs to be made executable
+            if not os.access(selected_file_path, os.X_OK):
+                try:
+                    # Make the script executable using chmod
+                    subprocess.run(["chmod", "+x", selected_file_path])
+                    print("Script made executable")
+
+                except Exception as e:
+                    print(f"Error making script executable: {e}")
+                    return
 
             try:
                 # Execute the script using subprocess
-                process = subprocess.Popen([sys.executable, file_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                process = subprocess.Popen([sys.executable, selected_file_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = process.communicate()
 
                 # Check the return code
@@ -255,7 +281,8 @@ class App2:
             except Exception as e:
                 print(f"An error occurred: {e}")
 
-
+# *************************************************************************************************************************************************
+                
     def GButton_306_command(self):
         folder_path = filedialog.askdirectory(title="Select Your vehicle_config folder")
         if folder_path:
