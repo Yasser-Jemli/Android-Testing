@@ -166,14 +166,17 @@ class App2:
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=("Arial", 12), bg="#3498db", fg="#ecf0f1")
         GLabel_574.place(x=0, y=470, width=600, height=25)
 
-        self.scrcpy_thread = ScrcpyThread()
 
 # ************************* Scrcpy Functions *****************************************************************************************
         
     def run_watch_scrcpy_function(self):
         # Start the ScrcpyThread
-        self.scrcpy_thread = ScrcpyThread(app2_instance=self)
         self.scrcpy_thread.start()
+        # Update the BooleanVar to indicate that the thread has been launched
+        self.thread_launched.set(True)
+
+        # Periodically check the thread status and update the button state
+        self.master.after(100, self.check_thread_status)
 
     def on_thread_launched_change(self, *args):
         # Callback to be executed when the BooleanVar changes
@@ -188,7 +191,7 @@ class App2:
         else:
             # If the thread has finished, update the button state
             self.thread_launched.set(False)
-            self.watch_scrcpy_button.config(state=tk.NORMAL)  
+            self.watch_scrcpy_button.config(state=tk.NORMAL)
 
 # **********************************************************************************************************************************
 # ****************************** function for handling the closing app2 ************************************************************
