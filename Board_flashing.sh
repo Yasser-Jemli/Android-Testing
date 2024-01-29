@@ -1,5 +1,5 @@
 #!/bin/bash
-# This Script is developed By Yasser JEMLI IPN (f060839)
+# This Script is developed By Yasser JEMLI IPN 
 # Date : 8 jan 2023
  
 # Define log file : will containe all info about board script and executing steps and info of this script
@@ -96,13 +96,11 @@ Flash_the_board() {
 }
 
  
-echo " This script is designed For Renault Product "
-echo " Please refrain From sharing This script : as all the rights are reserved For Renault"
+
 echo " ***********************************************************************************" 
 echo " ------------------------    ivi Flashing ----------------------------------------- "
 echo " If something Goes wrong the script is designed to handle and give you  a clear Output"
 echo " about the error in the console , if you're using the GUI mode then it will print a system popup also "
-echo " For debugging or clarification please contact : yasser.jamli@celadodc-rswl.com " 
 echo " ************************* Starting now **********************************************" 
 echo " For better understanding of this script you can use the help option "
 echo "   Run => ./Board_flashing.sh -help"
