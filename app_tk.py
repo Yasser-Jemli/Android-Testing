@@ -102,6 +102,9 @@ class App2:
         Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy",command=self.run_watch_scrcpy_function, font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Watch_scrcpy_button.place(x=250, y=60, width=100, height=25)
 
+        # Set up a trace to observe changes in the BooleanVar
+        self.thread_launched.trace_add('write', self.on_thread_launched_change)
+
         # Board Flashing Label
         Board_flashing_label = tk.Label(root, text="Board Flashing section", font=("Arial", 14, "bold"), bg="#2ecc71", fg="#ecf0f1")
         Board_flashing_label.place(x=0, y=140, width=600, height=25)
@@ -159,21 +162,25 @@ class App2:
     def run_watch_scrcpy_function(self):
         # Start the ScrcpyThread
         self.scrcpy_thread.start()
-        # Schedule disabling the button after a short delay
-        self.master.after(100, self.disable_watch_scrcpy_button)
-
-    def disable_watch_scrcpy_button(self):
-        # Disable the button after starting the thread
-        self.watch_scrcpy_button.config(state="disabled")
+        self.watch_scrcpy_button.config(state=tk.DISABLED)
+        # Update the BooleanVar to indicate that the thread has been launched
+        self.thread_launched.set(True)
     
-    def GButton_154_command(self):
-        print("Board wakeup button clicked")
+    def on_thread_launched_change(self, *args):
+        # Callback to be executed when the BooleanVar changes
+        if self.thread_launched.get():
+            # Update the Tkinter event loop to process changes
+            self.master.update_idletasks()
+
+            # Disable the button if the thread has been launched
+            self.watch_scrcpy_button.config(state=tk.DISABLED)
 
     def run_watch_scrcpy_function(self):
     # Command to run scrcpy in the background
         scrcpy_command = "watch scrcpy"
         # Run the command in the background
-        subprocess.Popen(scrcpy_command, shell=True)
+        subprocess.Popen(scrcpy_command, shell=True)   
+
 
     def on_closing(self):
         # This function will be called when the Tkinter app is closed
