@@ -12,6 +12,7 @@ class ScrcpyThread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
         self.scrcpy_process = None
+        self.stop_event = threading.Event()
 
     def run(self):
         # Command to run scrcpy in the background
@@ -21,6 +22,7 @@ class ScrcpyThread(threading.Thread):
         self.scrcpy_process.wait()
 
     def stop(self):
+        self.stop_event.set()
         if self.scrcpy_process:
             self.scrcpy_process.terminate()
 
@@ -53,6 +55,10 @@ class App2:
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
+        # creating an event that handle the App2 closing 
+        root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        # Set the master attribute
+        self.master = root
 
         # Board Configuration Label
         label_for_board_configuration = tk.Label(root, text="Board Configuration & Wakeup section", font=("Arial", 12, "bold"), bg="#3498db", fg="#ecf0f1")
@@ -89,6 +95,10 @@ class App2:
         Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Board_wakeup_button.place(x=250, y=30, width=100, height=25)
 
+        # BooleanVar to track whether the thread has been launched
+        self.thread_launched = tk.BooleanVar(root, value=False)
+
+        # scrcpy button
         Watch_scrcpy_button = tk.Button(root, text="Watch Scrcpy",command=self.run_watch_scrcpy_function, font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Watch_scrcpy_button.place(x=250, y=60, width=100, height=25)
 
@@ -149,6 +159,13 @@ class App2:
     def run_watch_scrcpy_function(self):
         # Start the ScrcpyThread
         self.scrcpy_thread.start()
+        # Schedule disabling the button after a short delay
+        self.master.after(100, self.disable_watch_scrcpy_button)
+
+    def disable_watch_scrcpy_button(self):
+        # Disable the button after starting the thread
+        self.watch_scrcpy_button.config(state="disabled")
+    
     def GButton_154_command(self):
         print("Board wakeup button clicked")
 
@@ -161,17 +178,27 @@ class App2:
     def on_closing(self):
         # This function will be called when the Tkinter app is closed
         print("Closing the Tkinter app")
+        
         # Stop the ScrcpyThread
         self.scrcpy_thread.stop()
+        
         # Wait for the thread to finish
         if self.scrcpy_thread.is_alive():  # Check if the thread is running
             self.scrcpy_thread.join()
 
+        # Add a delay to give the scrcpy process time to terminate
+        self.master.after(1000)  # Delay in milliseconds
+
         # Find and terminate any remaining scrcpy processes
         for process in psutil.process_iter(['pid', 'name', 'cmdline']):
-            if "watch scrcpy" in ' '.join(process.info['cmdline']):
-                print(f"Terminating process: {process.info['name']} (PID: {process.info['pid']})")
-                process.terminate()
+            if 'cmdline' in process.info and isinstance(process.info['cmdline'], list):
+                cmdline_str = ' '.join(process.info['cmdline'])
+                if "watch scrcpy" in cmdline_str:
+                    print(f"Terminating process: {process.info['name']} (PID: {process.info['pid']})")
+                    process.terminate()
+
+        # Destroy the Tkinter app
+        self.master.destroy()
 
     def GButton_103_command(self):
         file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
@@ -240,9 +267,7 @@ class AppChooser:
 
 def main():
     root = tk.Tk()
-    app_chooser = AppChooser(root)
-    app2_instance = App2(root)  # Fix: create an instance of App2
-    root.protocol("WM_DELETE_WINDOW", app2_instance.on_closing)    
+    app_chooser = AppChooser(root) 
     root.mainloop()
 
 if __name__ == "__main__":
