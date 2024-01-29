@@ -112,7 +112,6 @@ class App2:
         # ...
 
         self.scrcpy_thread = ScrcpyThread(app2_instance=self)
-
         # ...
 
         # Board Flashing Label
@@ -173,6 +172,7 @@ class App2:
         
     def run_watch_scrcpy_function(self):
         # Start the ScrcpyThread
+        self.scrcpy_thread = ScrcpyThread(app2_instance=self)
         self.scrcpy_thread.start()
 
     def on_thread_launched_change(self, *args):
@@ -181,15 +181,6 @@ class App2:
             # Disable the button if the thread has been launched
             self.watch_scrcpy_button.config(state=tk.DISABLED)
 
-    def run_watch_scrcpy_function(self):
-        # Start the ScrcpyThread
-        self.scrcpy_thread.start()
-        # Update the BooleanVar to indicate that the thread has been launched
-        self.thread_launched.set(True)
-
-        # Periodically check the thread status and update the button state
-        self.master.after(100, self.check_thread_status)
-
     def check_thread_status(self):
         if self.scrcpy_thread.is_alive():
             # If the thread is still running, schedule another check after 100 milliseconds
@@ -197,7 +188,7 @@ class App2:
         else:
             # If the thread has finished, update the button state
             self.thread_launched.set(False)
-            self.watch_scrcpy_button.config(state=tk.NORMAL)   
+            self.watch_scrcpy_button.config(state=tk.NORMAL)  
 
 # **********************************************************************************************************************************
 # ****************************** function for handling the closing app2 ************************************************************
@@ -205,10 +196,10 @@ class App2:
     def on_closing(self):
         # This function will be called when the Tkinter app is closed
         print("Closing the Tkinter app")
-        
+
         # Stop the ScrcpyThread
         self.scrcpy_thread.stop()
-        
+
         # Wait for the thread to finish
         if self.scrcpy_thread.is_alive():  # Check if the thread is running
             self.scrcpy_thread.join()
@@ -234,24 +225,18 @@ class App2:
         if file_path:
             print("Selected File:", file_path)
 
-    def GButton_248_command(self):
-        print("Start Flashing button clicked")
 
     def GButton_306_command(self):
         folder_path = filedialog.askdirectory(title="Select Your vehicle_config folder")
         if folder_path:
             print("Selected Folder:", folder_path)
 
-    def GButton_801_command(self):
-        print("Start Pushing The config button clicked")
 
     def GButton_604_command(self):
         folder_path = filedialog.askdirectory(title="Select Your VSP Folder")
         if folder_path:
             print("Selected VSP Folder:", folder_path)
 
-    def GButton_461_command(self):
-        print("Launching VSPsim button clicked")
 
     
     def on_entry_click_for_can0_configuration(self, event):
