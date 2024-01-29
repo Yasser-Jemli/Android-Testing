@@ -6,6 +6,8 @@ from tkinter import font as tkFont
 import subprocess
 import threading
 import psutil
+import sys 
+import os
 
 
 class ScrcpyThread(threading.Thread):
@@ -224,9 +226,34 @@ class App2:
 # ******************************************************************************************************************************************************************
         
     def GButton_103_command(self):
+    # Ask user to select the flashing script
         file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
+
         if file_path:
             print("Selected File:", file_path)
+
+            # Extract the directory of the selected file
+            script_dir = os.path.dirname(file_path)
+
+            try:
+                # Execute the script using subprocess
+                process = subprocess.Popen([sys.executable, file_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                stdout, stderr = process.communicate()
+
+                # Check the return code
+                return_code = process.returncode
+
+                if return_code == 0:
+                    print("Script executed successfully")
+                else:
+                    print(f"Error executing script. Return code: {return_code}")
+                    print("Standard Output:")
+                    print(stdout.decode('utf-8'))
+                    print("Standard Error:")
+                    print(stderr.decode('utf-8'))
+
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
 
     def GButton_306_command(self):
