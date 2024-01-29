@@ -56,7 +56,7 @@ class App2:
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
-        # creating an event that handle the App2 closing 
+        # creating an event that handles the App2 closing
         root.protocol("WM_DELETE_WINDOW", self.on_closing)
         # Set the master attribute
         self.master = root
@@ -96,6 +96,8 @@ class App2:
         Board_wakeup_button = tk.Button(root, text="Board wakeup", font=("Arial", 10), bg="#2980b9", fg="#ecf0f1")
         Board_wakeup_button.place(x=250, y=30, width=100, height=25)
 
+        # ...
+
         # BooleanVar to track whether the thread has been launched
         self.thread_launched = tk.BooleanVar(root, value=False)
 
@@ -109,7 +111,9 @@ class App2:
 
         # ...
 
-        self.scrcpy_thread = ScrcpyThread(self)
+        self.scrcpy_thread = ScrcpyThread(app2_instance=self)
+
+        # ...
 
         # Board Flashing Label
         Board_flashing_label = tk.Label(root, text="Board Flashing section", font=("Arial", 14, "bold"), bg="#2ecc71", fg="#ecf0f1")
