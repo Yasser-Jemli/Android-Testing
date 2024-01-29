@@ -128,7 +128,7 @@ class App2:
         button_for_file_selection.place(x=200, y=180, width=120, height=25)
 
         # Buttons for Launching the Flashing Process
-        button_for_launching_the_flashing_process = tk.Button(root, text="Start Flashing", font=("Arial", 10), bg="#3498db", fg="#ecf0f1")
+        button_for_launching_the_flashing_process = tk.Button(root, text="Start Flashing", command=self.execute_script, font=("Arial", 10), bg="#3498db", fg="#ecf0f1")
         button_for_launching_the_flashing_process.place(x=350, y=180, width=120, height=25)
 
         # Select Your vehicle_config folder Label
@@ -336,14 +336,21 @@ class AppChooser:
     def __init__(self, master):
         self.master = master
         self.master.title("Choose an App")
+        width = 400
+        height = 300
+        screenwidth = master.winfo_screenwidth()
+        screenheight = master.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        master.geometry(alignstr)
+        master.resizable(width=False, height=False)
 
-        self.label = tk.Label(self.master, text="Select an app:")
+        self.label = tk.Label(self.master, text="Select Your App:")
         self.label.pack(pady=10)
 
-        self.button_app1 = tk.Button(self.master, text="App 1", command=self.run_app1)
+        self.button_app1 = tk.Button(self.master, text="HMI_Auto_env", command=self.run_app1)
         self.button_app1.pack(pady=5)
 
-        self.button_app2 = tk.Button(self.master, text="App 2", command=self.run_app2)
+        self.button_app2 = tk.Button(self.master, text="HMI_Auto_manuel_env", command=self.run_app2)
         self.button_app2.pack(pady=5)
 
     def run_app1(self):
