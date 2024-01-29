@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import font as tkFont
+from tkinter import messagebox
 import subprocess
 import threading
 import psutil
@@ -347,11 +348,25 @@ class AppChooser:
         self.label = tk.Label(self.master, text="Select Your App:")
         self.label.pack(pady=10)
 
+        # Info button command function
+        def show_info_message(info):
+            messagebox.showinfo("App Info", info)
+
+        # App 1
         self.button_app1 = tk.Button(self.master, text="HMI_Auto_env", command=self.run_app1)
         self.button_app1.pack(pady=5)
 
+        # Info button for App 1
+        self.info_button_app1 = tk.Button(self.master, text="Info", command=lambda: show_info_message("Info about HMI_Auto_env"))
+        self.info_button_app1.pack(pady=5)
+
+        # App 2
         self.button_app2 = tk.Button(self.master, text="HMI_Auto_manuel_env", command=self.run_app2)
         self.button_app2.pack(pady=5)
+
+        # Info button for App 2
+        self.info_button_app2 = tk.Button(self.master, text="Info", command=lambda: show_info_message("Info about HMI_Auto_manuel_env"))
+        self.info_button_app2.pack(pady=5)
 
     def run_app1(self):
         app1_window = tk.Tk()
