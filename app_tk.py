@@ -229,6 +229,9 @@ class App2:
     # Global variable to store the file path
     selected_file_path = None
 
+    def destroy_error_message(self):
+        messagebox.destroy('error_message')
+
     def get_file_path(self):
         global selected_file_path
         # Ask user to select the flashing script
@@ -238,7 +241,7 @@ class App2:
             # Display a message box if the user cancels the file selection
             messagebox.showinfo("File Selection Canceled", "File selection canceled. Please try again.", icon='error')
             # After 2 seconds, destroy the message box
-            self.after(2000, lambda: messagebox.destroy('error_message'))
+            self.after(200, self.destroy_error_message)
         else:
             # the file was selected successfully
             messagebox.showinfo("The file was selected Correctly","Thanks !")
