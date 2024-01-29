@@ -357,7 +357,7 @@ class AppChooser:
         self.button_app1.place(x=10, y=40,width=180,height=40)
 
         # Info button for App 1
-        self.info_button_app1 = tk.Button(self.master, text="Info", command=lambda: show_info_message("Info about HMI_Auto_env"))
+        self.info_button_app1 = tk.Button(self.master, text="Info", command=lambda: show_info_message("This app is used to facilate handling The auto app it provides a lot of option to run test cases with Auto env "))
         self.info_button_app1.place(x=200, y=40,width=40,height=40)
 
         # App 2
@@ -365,7 +365,7 @@ class AppChooser:
         self.button_app2.place(x=10, y=90,width=180,height=40)
 
         # Info button for App 2
-        self.info_button_app2 = tk.Button(self.master, text="Info", command=lambda: show_info_message("Info about HMI_Auto_manuel_env"))
+        self.info_button_app2 = tk.Button(self.master, text="Info", command=lambda: show_info_message("This app is used to manuel env and manuel testin porpose , it provide functions like board flashing , board wake up ,vsp simulation starting , vehicle config selection & pushing"))
         self.info_button_app2.place(x=200, y=90,width=40,height=40)
 
     def run_app1(self):
