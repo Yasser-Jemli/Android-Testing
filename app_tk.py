@@ -6,6 +6,7 @@ import threading
 import psutil
 import sys 
 import os
+# This app depend also on zenity command utility make sure to be installed => use < apt install zenity > 
 
 
 class ScrcpyThread(threading.Thread):
@@ -165,8 +166,14 @@ class App2:
         # Footer Label section
         GLabel_574 = tk.Label(root, text="All rights reserved 2024", font=("Arial", 12), bg="#3498db", fg="#ecf0f1")
         GLabel_574.place(x=0, y=470, width=600, height=25)
-
+# ********************** gloabal Variables ***************************************************
+        
+        # fucntion variabale
         self.error_message_box = None
+        self.selected_file_path = None
+
+# **********************************************************************************************
+    
 # ************************* Scrcpy Functions *****************************************************************************************
         
     def run_watch_scrcpy_function(self):
@@ -224,50 +231,51 @@ class App2:
 # ******************************************************************************************************************************************************************
 # ************************************* functions for the flashing Process **************************************
                
-    # Global variable to store the file path
-    selected_file_path = None
-    
-
     def destroy_error_message(self):
         if self.error_message_box:
             self.error_message_box.destroy()
             self.error_message_box = None
 
     def get_file_path(self):
-        global selected_file_path
-        # Ask user to select the flashing script
-        selected_file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
+        try:
+            # Run Zenity to get the selected file path
+            result = subprocess.run(["zenity", "--file-selection", "--title=Select Your Flashing Script", "--file-filter=*.sh"],
+                                    capture_output=True, text=True)
 
-        if not selected_file_path:
-            # Display a message box if the user cancels the file selection
-            self.error_message_box = tk.Toplevel(self.master)
-            self.error_message_box.title("Error")
-            self.error_message_box.geometry("300x100")
-            label = tk.Label(self.error_message_box, text="File selection canceled. Please try again.", font=("Arial", 10))
-            label.pack(pady=10)
-            # After 2 seconds, destroy the message box
-            self.master.after(2000, self.destroy_error_message)
-        else:
-            # The file was selected successfully
-            self.error_message_box = tk.Toplevel(self.master)
-            self.error_message_box.title("Success")
-            self.error_message_box.geometry("300x100")
-            label = tk.Label(self.error_message_box, text="The file was selected correctly. Thanks!", font=("Arial", 10))
-            label.pack(pady=10)
-            # After 2 seconds, destroy the message box
-            self.master.after(2000, self.destroy_error_message)
-        
-    def execute_script():
-        global selected_file_path
-        if selected_file_path:
+            # Check if Zenity returned successfully
+            if result.returncode == 0:
+                self.selected_file_path = result.stdout.strip()
+                # The file was selected successfully
+                self.error_message_box = tk.Toplevel(self.master)
+                self.error_message_box.title("Success")
+                self.error_message_box.geometry("300x100")
+                label = tk.Label(self.error_message_box, text="The file was selected correctly. Thanks!", font=("Arial", 10))
+                label.pack(pady=10)
+                # After 2 seconds, destroy the message box
+                self.master.after(2000, self.destroy_error_message)
+            else:
+                # Display a message box if the user cancels the file selection
+                self.error_message_box = tk.Toplevel(self.master)
+                self.error_message_box.title("Error")
+                self.error_message_box.geometry("300x100")
+                label = tk.Label(self.error_message_box, text="File selection canceled. Please try again.", font=("Arial", 10))
+                label.pack(pady=10)
+                # After 2 seconds, destroy the message box
+                self.master.after(2000, self.destroy_error_message)
+
+        except FileNotFoundError:
+            print("Zenity not found. Please make sure Zenity is installed on your system.")
+
+    def execute_script(self):
+        if self.selected_file_path:
             # Extract the directory of the selected file
-            script_dir = os.path.dirname(selected_file_path)
+            script_dir = os.path.dirname(self.selected_file_path)
 
             # Check if the script needs to be made executable
-            if not os.access(selected_file_path, os.X_OK):
+            if not os.access(self.selected_file_path, os.X_OK):
                 try:
                     # Make the script executable using chmod
-                    subprocess.run(["chmod", "+x", selected_file_path])
+                    subprocess.run(["chmod", "+x", self.selected_file_path])
                     print("Script made executable")
 
                 except Exception as e:
@@ -276,7 +284,8 @@ class App2:
 
             try:
                 # Execute the script using subprocess
-                process = subprocess.Popen([sys.executable, selected_file_path], cwd=script_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                process = subprocess.Popen([sys.executable, self.selected_file_path], cwd=script_dir,
+                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = process.communicate()
 
                 # Check the return code
