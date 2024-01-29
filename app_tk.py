@@ -21,6 +21,8 @@ class ScrcpyThread(threading.Thread):
         # Run the command in the background
         self.scrcpy_process = subprocess.Popen(scrcpy_command, shell=True)
         self.scrcpy_process.wait()
+        # Notify App2 instance that the thread has finished
+        self.app2_instance.master.after(0, self.app2_instance.check_thread_status)
 
     def stop(self):
         self.stop_event.set()
