@@ -230,22 +230,22 @@ class App2:
     selected_file_path = None
 
     def destroy_error_message(self):
-        messagebox.destroy('error_message')
+            self.error_message_box.destroy()
 
     def get_file_path(self):
         global selected_file_path
         # Ask user to select the flashing script
         selected_file_path = filedialog.askopenfilename(title="Select Your Flashing Script", filetypes=[("Text files", "*.txt")])
-        
+
         if not selected_file_path:
             # Display a message box if the user cancels the file selection
-            messagebox.showinfo("File Selection Canceled", "File selection canceled. Please try again.", icon='error')
+            self.error_message_box = messagebox.showinfo("File Selection Canceled", "File selection canceled. Please try again.", icon='error')
             # After 2 seconds, destroy the message box
-            self.after(200, self.destroy_error_message)
+            self.master.after(2000, self.destroy_error_message)
         else:
-            # the file was selected successfully
-            messagebox.showinfo("The file was selected Correctly","Thanks !")
-            self.after(2000, lambda:messagebox.destroy('info_message'))
+            # The file was selected successfully
+            self.error_message_box = messagebox.showinfo("The file was selected Correctly", "Thanks !")
+            self.master.after(2000, self.destroy_error_message)
         
     def execute_script():
         global selected_file_path
