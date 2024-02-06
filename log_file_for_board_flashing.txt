@@ -1,0 +1,8 @@
+[2024-02-05 21:53:57] ERROR 1 :  Invalid Input !!! 
+[2024-02-05 21:53:57] INFO: Please see the Help menu 
+[2024-02-05 21:53:57] DEBUG 2 : Run ==> ./Board_flashing.s -help
+[2024-02-05 21:53:57] ERROR:  Exiting ........ 
+[2024-02-05 21:54:30] ERROR:  Invalid Input !!! 
+[2024-02-05 21:54:30] INFO: Please see the Help menu 
+[2024-02-05 21:54:30] DEBUG: Run ==> ./Board_flashing.s -help
+[2024-02-05 21:54:30] ERROR:  Exiting ........ 

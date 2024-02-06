@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import subprocess
 import pyautogui
 import time
@@ -14,6 +16,12 @@ def run_terminal_command(command):
 
     # Type the command
     pyautogui.typewrite(command)
+
+    # Press Enter
+    pyautogui.press('enter')
+    time.sleep (3)
+
+    pyautogui.typewrite("pwd")
 
     # Press Enter
     pyautogui.press('enter')
